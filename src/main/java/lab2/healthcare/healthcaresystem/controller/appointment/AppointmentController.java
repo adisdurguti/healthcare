@@ -141,6 +141,14 @@ public class AppointmentController {
         appointmentService.save(appointmentDB);
 
         Doctor doctor = doctorService.currentDoctor();
+
+        if(doctor==null) {
+            doctor=new Doctor();
+            model.addAttribute("doctor", doctor);
+        }else{
+            model.addAttribute("doctor",doctor);
+        }
+
         List<Appointment> appointments = appointmentService.getAppointmentsByDoctorId(doctor);
         model.addAttribute("listAppointments", appointments);
 
@@ -162,6 +170,14 @@ public class AppointmentController {
         appointmentService.save(appointmentDB);
 
         Doctor doctor = doctorService.currentDoctor();
+
+        if(doctor==null) {
+            doctor=new Doctor();
+            model.addAttribute("doctor", doctor);
+        }else{
+            model.addAttribute("doctor",doctor);
+        }
+
         List<Appointment> appointments = appointmentService.getAppointmentsByDoctorId(doctor);
         model.addAttribute("listAppointments", appointments);
 
