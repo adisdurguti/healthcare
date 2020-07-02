@@ -44,6 +44,8 @@ public class Appointment implements Comparable<Appointment>{
         this.doctor = doctor;
     }
 
+
+
     @Override
     public int compareTo(Appointment o) {
         return this.getIdAppointment().compareTo(o.getIdAppointment());
