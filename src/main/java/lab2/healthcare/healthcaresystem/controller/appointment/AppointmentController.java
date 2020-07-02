@@ -61,7 +61,7 @@ public class AppointmentController {
         appointment.setStatus(AppointmentStatusEnum.PENDING);
         appointmentService.save(appointment);
 
-        return "patient/patient";
+        return "redirect:patient";
     }
 
 
@@ -70,8 +70,15 @@ public class AppointmentController {
     public String viewListOfDoctors(Model model) {
 
         List<Doctor> listDoctors= doctorService.listAll();
-        model.addAttribute("listDoctors", listDoctors);
+        Patient patient = patientService.currentPatient();
 
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listDoctors", listDoctors);
         return "appointment/listOfDoctors";
     }
 
@@ -91,8 +98,14 @@ public class AppointmentController {
         Doctor doctor = doctorService.currentDoctor();
 
         List<Appointment> appointments = appointmentService.getAppointmentsByDoctorId(doctor);
-        model.addAttribute("listAppointments", appointmentService.getAppointmentsByDoctorId(doctor));
-        model.addAttribute("doctor", doctor);
+        model.addAttribute("listAppointments",appointments);
+
+        if(doctor==null) {
+            doctor=new Doctor();
+            model.addAttribute("doctor", doctor);
+        }else{
+            model.addAttribute("doctor",doctor);
+        }
 
         return "doctor/appointment-list";
     }
@@ -104,7 +117,13 @@ public class AppointmentController {
 
         List<Appointment> appointments = appointmentService.getAppointmentsByPatientId(patient);
         model.addAttribute("listAppointments", appointments);
-        model.addAttribute("patient", patient);
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+
 
         return "patient/appointment-list";
     }

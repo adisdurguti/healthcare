@@ -28,10 +28,12 @@ public class DoctorController {
     public String doctorData(Model model) {
 
         Doctor doctor = doctorService.currentDoctor();
-        Doctor doctor1 = doctorService.currentDoctor();
-        model.addAttribute("doctor", doctor);
-        model.addAttribute("doctor1", doctor1);
-
+        if(doctor==null) {
+            doctor=new Doctor();
+            model.addAttribute("doctor", doctor);
+        }else{
+            model.addAttribute("doctor",doctor);
+        }
         return "doctor/doctor-data";
     }
 

@@ -85,8 +85,12 @@ public class  UserController {
         User user = userService.findUserByUsername(auth.getName());
         Patient patient = patientService.currentPatient();
 
-        model.addObject("userName", user.getUsername() + " " + user.getId());
-        model.addObject("patient", patient);
+        if(patient==null) {
+            patient=new Patient();
+            model.addObject("patient", patient);
+        }else{
+            model.addObject("patient",patient);
+        }
         model.setViewName("patient/patient");
         return model;
     }
@@ -94,7 +98,12 @@ public class  UserController {
     public ModelAndView doctor(){
         ModelAndView model = new ModelAndView();
         Doctor doctor = doctorService.currentDoctor();
-        model.addObject("doctor", doctor);
+        if(doctor==null) {
+            doctor=new Doctor();
+            model.addObject("doctor", doctor);
+        }else{
+            model.addObject("doctor",doctor);
+        }
         model.setViewName("doctor/doctor");
 
         return model;

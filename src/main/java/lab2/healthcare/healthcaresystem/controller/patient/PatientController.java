@@ -31,8 +31,13 @@ public class PatientController {
     public String patientData(Model model) {
 
         Patient patient = patientService.currentPatient();
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
         model.addAttribute("patient", patient);
-
         return "patient/patient-data";
     }
 

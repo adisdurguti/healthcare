@@ -122,7 +122,12 @@ public class DiagnoseController {
         mav.addObject("appointmentDiagnose", appointmentDiagnose);
         mav.addObject("doctorDiagnose", doctorDiagnose);
         mav.addObject("patientDiagnose", patientDiagnose);
-        mav.addObject("doctor", doctor);
+        if(doctor==null) {
+            doctor=new Doctor();
+            mav.addObject("doctor", doctor);
+        }else{
+            mav.addObject("doctor",doctor);
+        }
 
         return mav;
     }
@@ -165,7 +170,13 @@ public class DiagnoseController {
         Diagnose diagnose = diagnoseService.getDiagnoseByAppointment(appointment);
         ModelAndView mav = new ModelAndView("patient/view-diagnose");
         mav.addObject("diagnose", diagnose);
-        mav.addObject("patient", patient);
+        if(patient==null) {
+            patient=new Patient();
+            mav.addObject("patient", patient);
+        }else{
+            mav.addObject("patient",patient);
+        }
+
 
         return mav;
     }

@@ -38,7 +38,12 @@ public class RatingController {
      /*   mav.addObject("doctorSelected", doctorSelected);
         mav.addObject("doctorSelected", doctorSelected);*/
         mav.addObject("rating", rating);
-        mav.addObject("patient",patient);
+        if(patient==null) {
+            patient=new Patient();
+            mav.addObject("patient", patient);
+        }else{
+            mav.addObject("patient",patient);
+        }
         mav.addObject("doctorSelected",doctorSelected);
 
         return mav;
