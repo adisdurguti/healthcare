@@ -50,17 +50,24 @@ public class RatingController {
     }
 
     @RequestMapping(value = "/save-rating", method = RequestMethod.POST)
-    public String saveRating(@ModelAttribute("rating") Rating rating) {
+    public ModelAndView saveRating(@ModelAttribute("rating") Rating rating) {
 
         Date testDate = new Date();
-
+        ModelAndView mav = new ModelAndView("redirect:/listOfDoctors");
         rating.setDoctor(doctorSelected);
         rating.setDate(testDate);
         rating.setPatient(patientService.currentPatient());
 
         ratingService.save(rating);
+        Patient patient = patientService.currentPatient();
+        if(patient==null) {
+            patient=new Patient();
+            mav.addObject("patient", patient);
+        }else{
+            mav.addObject("patient",patient);
+        }
 
-        return "patient/patient";
+        return mav;
     }
 
 }

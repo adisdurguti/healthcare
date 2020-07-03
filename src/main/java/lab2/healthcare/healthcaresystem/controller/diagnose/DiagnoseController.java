@@ -157,7 +157,7 @@ public class DiagnoseController {
         List<Appointment> appointments = appointmentService.getAppointmentsByDoctorId(doctor);
         model.addAttribute("listAppointments", appointments);
 
-        return "doctor/appointment-list";
+        return "redirect:/doctorAppointments";
     }
 
 

@@ -61,7 +61,7 @@ public class AppointmentController {
         appointment.setStatus(AppointmentStatusEnum.PENDING);
         appointmentService.save(appointment);
 
-        return "redirect:patient";
+        return "redirect:/patientAppointments";
     }
 
 
@@ -85,10 +85,10 @@ public class AppointmentController {
 
     @RequestMapping("/list")
     public String viewListOfAppointment(Model model) {
-
+        User user = userService.currentUser();
         List<Appointment> list= appointmentService.list();
         model.addAttribute("appointmentList", list);
-
+        model.addAttribute("user", user);
         return "admin/admin-appointments";
     }
 

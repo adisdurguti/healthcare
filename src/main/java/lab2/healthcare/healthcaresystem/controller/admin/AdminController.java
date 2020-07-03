@@ -21,7 +21,7 @@ public class AdminController {
     @RequestMapping("/registerDoctor")
     public String registerDoctor(Model model) {
 
-        User user = new User();
+        User user = userService.currentUser();
         model.addAttribute("user", user);
 
         return "admin/register-doctor";
@@ -41,7 +41,7 @@ public class AdminController {
             userService.saveUserDoctor(user);
             model.addObject("msg", "User has been registered successfully!");
             model.addObject("user", new User());
-            model.setViewName("admin/admin-dashboard");
+            model.setViewName("redirect:/admin");
         }
         return model;
     }
