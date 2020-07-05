@@ -148,12 +148,16 @@ public class AppointmentController {
 
         Appointment appointmentDB = new Appointment();
         appointmentDB = appointmentService.get(id);
-        appointmentDB.setDoctor(appointmentDB.getDoctor());
-        appointmentDB.setDate(appointmentDB.getDate());
-        appointmentDB.setPatient(appointmentDB.getPatient());
-        appointmentDB.setDescription(appointmentDB.getDescription());
-        appointmentDB.setStatus(AppointmentStatusEnum.ACCEPTED);
-        appointmentService.save(appointmentDB);
+        if(appointmentDB.getStatus().equals(AppointmentStatusEnum.PENDING)) {
+            appointmentDB.setDoctor(appointmentDB.getDoctor());
+            appointmentDB.setDate(appointmentDB.getDate());
+            appointmentDB.setPatient(appointmentDB.getPatient());
+            appointmentDB.setDescription(appointmentDB.getDescription());
+            appointmentDB.setStatus(AppointmentStatusEnum.ACCEPTED);
+            appointmentService.save(appointmentDB);
+        }else{
+            System.out.println("cant do it");
+        }
 
         Doctor doctor = doctorService.currentDoctor();
 
@@ -176,13 +180,18 @@ public class AppointmentController {
     public String declineAppointment(@PathVariable(name = "id") Long id,Model model) {
 
         Appointment appointmentDB = new Appointment();
+
         appointmentDB = appointmentService.get(id);
-        appointmentDB.setDoctor(appointmentDB.getDoctor());
-        appointmentDB.setDate(appointmentDB.getDate());
-        appointmentDB.setPatient(appointmentDB.getPatient());
-        appointmentDB.setDescription(appointmentDB.getDescription());
-        appointmentDB.setStatus(AppointmentStatusEnum.CANCELED);
-        appointmentService.save(appointmentDB);
+        if(appointmentDB.getStatus().equals(AppointmentStatusEnum.PENDING)) {
+            appointmentDB.setDoctor(appointmentDB.getDoctor());
+            appointmentDB.setDate(appointmentDB.getDate());
+            appointmentDB.setPatient(appointmentDB.getPatient());
+            appointmentDB.setDescription(appointmentDB.getDescription());
+            appointmentDB.setStatus(AppointmentStatusEnum.CANCELED);
+            appointmentService.save(appointmentDB);
+        }else{
+            System.out.println("cant do it");
+        }
 
         Doctor doctor = doctorService.currentDoctor();
 

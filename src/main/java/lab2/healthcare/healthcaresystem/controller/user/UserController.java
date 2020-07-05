@@ -1,9 +1,9 @@
 package lab2.healthcare.healthcaresystem.controller.user;
 
 
-import lab2.healthcare.healthcaresystem.models.Doctor;
-import lab2.healthcare.healthcaresystem.models.Patient;
-import lab2.healthcare.healthcaresystem.models.User;
+import lab2.healthcare.healthcaresystem.models.*;
+import lab2.healthcare.healthcaresystem.repository.AppointmentRepository;
+import lab2.healthcare.healthcaresystem.repository.DiagnoseRepository;
 import lab2.healthcare.healthcaresystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,8 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.print.Doc;
 import javax.validation.Valid;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class  UserController {
@@ -37,7 +36,10 @@ public class  UserController {
 
     @Autowired
     DiagnoseService diagnoseService;
-
+    @Autowired
+    AppointmentRepository appointmentRepository;
+    @Autowired
+    DiagnoseRepository diagnoseRepository;
 
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
      public ModelAndView login() {
@@ -84,12 +86,13 @@ public class  UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUsername(auth.getName());
         Patient patient = patientService.currentPatient();
-
+        List<Appointment> appointments = appointmentService.getAppointmentsByPatientId(patient);
         if(patient==null) {
             patient=new Patient();
             model.addObject("patient", patient);
         }else{
             model.addObject("patient",patient);
+            model.addObject("listAppointments",appointments);
         }
         model.setViewName("patient/patient");
         return model;
@@ -98,11 +101,15 @@ public class  UserController {
     public ModelAndView doctor(){
         ModelAndView model = new ModelAndView();
         Doctor doctor = doctorService.currentDoctor();
+        List<Appointment> appointments = appointmentRepository.findAllByDoctor(doctor);
+        List<Diagnose> diagnoses = diagnoseRepository.findDiagnoseByDoctor(doctor);
         if(doctor==null) {
             doctor=new Doctor();
             model.addObject("doctor", doctor);
         }else{
             model.addObject("doctor",doctor);
+            model.addObject("listAppointments",appointments);
+            model.addObject("listDiagnoses",diagnoses);
         }
         model.setViewName("doctor/doctor");
 

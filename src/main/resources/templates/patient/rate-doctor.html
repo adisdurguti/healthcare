@@ -347,7 +347,7 @@
                     <h1>Rate</h1>
                     <h1 th:text="${doctorSelected.toString()}"></h1>
                     <br />
-                    <form action="#" th:action="@{/save-rating}" th:object="${rating}"
+                    <form id="myform" action="#" th:action="@{/save-rating}" th:object="${rating}"
                           method="post">
 
 
@@ -367,11 +367,15 @@
 
                         <div class="form-group">
                             <label >Feedback:</label>
-                            <input type="text" th:field="*{feedback}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter Feedback">
+
+                            <textarea class="form-control" name="news_content" rows="10" cols="80" th:field="*{feedback}" form="myform">
+
+                            </textarea>
                         </div>
 
                         <tr>
-                            <td colspan="2"><button type="submit">Save</button> </td>
+                            <td colspan="2"><button type="submit" style="display: block; width: 100%; margin-top: 50px;
+                                 padding: 10px;" class="btn btn-primary">Save</button> </td>
                         </tr>
 
                     </form>
