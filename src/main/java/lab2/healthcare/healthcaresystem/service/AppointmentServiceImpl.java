@@ -82,6 +82,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         int countJanuary = 0;
 
         for (Appointment appointment:appointmentRepository.findAll()) {
+
             calendar.setTime(appointment.getDate());
             if (calendar.get(Calendar.MONTH) == Calendar.JANUARY){
                 countJanuary++;

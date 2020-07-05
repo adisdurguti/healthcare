@@ -444,37 +444,31 @@
             <div class="container-fluid">
 
 
-                <h2>Appointments</h2>
+                <h2>Patients</h2>
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
                         <thead>
                         <tr>
-                            <th>Appointment Id</th>
-                            <th>Appointment Date</th>
-                            <th>Appointment Patient</th>
-                            <th>Appointment Description</th>
-                            <th>Appointment Doctor</th>
-
+                            <th>Patient Id</th>
+                            <th>Patient First Name</th>
+                            <th>Patient Last Name</th>
+                            <th>Patient Address</th>
+                            <th>Patient Phone</th>
+                            <th>Patient Country</th>
+                            <th>Patient City</th>
+                            <th>Patient Sex</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="appointment : ${appointmentList}">
-                            <td th:text="${appointment.idAppointment}">Appointment ID</td>
-                            <td th:text="${appointment.date}">Appointment Date</td>
-                            <td th:text="${appointment.patient.getFirstName()}">Appointment Patient</td>
-                            <td th:text="${appointment.description}">Appointment Description</td>
-                            <td th:text="${appointment.doctor.getFirstName()}">Appointment Doctor</td>
-
-
-                            <td>
-
-                                <!--   <a th:href="@{'http://localhost:8080/edit/' + ${doctor.iddoctor}}">Edit</a>
-                                   &nbsp;&nbsp;&nbsp;-->
-                                <!--                                <a th:href="@{'/createAppointment/' + ${doctor.iddoctor}}'">Reserve</a>-->
-                                <!--   <a th:href="@{/createAppointment/} + ${doctor.iddoctor}">Reserve</a>-->
-
-
-                            </td>
+                        <tr th:each="patient  : ${listPatients}">
+                            <td th:text="${patient.idpatient}">Doctor ID</td>
+                            <td th:text="${patient.firstName}">First Name</td>
+                            <td th:text="${patient.lastName}">Last Name</td>
+                            <td th:text="${patient.address}">Address</td>
+                            <td th:text="${patient.phone}">Phone </td>
+                            <td th:text="${patient.country}">Country</td>
+                            <td th:text="${patient.city}">city</td>
+                            <td th:text="${patient.sex}">sex</td>
                         </tr>
                         </tbody>
                     </table>

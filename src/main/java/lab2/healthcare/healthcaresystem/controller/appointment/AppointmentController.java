@@ -14,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -39,24 +42,36 @@ public class AppointmentController {
     @RequestMapping(value = "/createAppointment/{id}", method = RequestMethod.GET)
     public ModelAndView createAppointment(@PathVariable(name = "id") Long id) {
 
+   /*     LocalDate localDate = new LocalDate.now();
+        String currentDateString = currentDate.toString();*/
         doctorSelected = doctorService.get(id);
         Appointment appointment = new Appointment();
         ModelAndView mav = new ModelAndView("appointment/createAppointment");
         appointment.setDoctor(doctorSelected);
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            mav.addObject("patient", patient);
+        }else{
+            mav.addObject("patient",patient);
+        }
         mav.addObject("doctorSelected", doctorSelected);
         mav.addObject("appointment", appointment);
+        /*mav.addObject("currentDate",currentDate);*/
 
         return mav;
     }
 
 
     @RequestMapping(value = "/saveAppointment", method = RequestMethod.POST)
-    public String saveAppointment(@ModelAttribute("appointment") Appointment appointment) {
+    public String saveAppointment(@ModelAttribute("appointment") Appointment appointment) throws ParseException {
 
-        Date testDate = new Date();
-        testDate.getMonth();
+
         appointment.setDoctor(doctorSelected);
-        appointment.setDate(testDate);
+       /* String date = appointment.getDate().toString();
+        Date date1=new SimpleDateFormat("mm/dd/yyyy").parse(date);
+        appointment.setDate(date1);*/
         appointment.setPatient(patientService.currentPatient());
         appointment.setStatus(AppointmentStatusEnum.PENDING);
         appointmentService.save(appointment);

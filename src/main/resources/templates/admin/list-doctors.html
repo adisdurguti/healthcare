@@ -239,7 +239,6 @@
 
 
 
-
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -444,37 +443,36 @@
             <div class="container-fluid">
 
 
-                <h2>Appointments</h2>
+                <h2>Doctors</h2>
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
                         <thead>
                         <tr>
-                            <th>Appointment Id</th>
-                            <th>Appointment Date</th>
-                            <th>Appointment Patient</th>
-                            <th>Appointment Description</th>
-                            <th>Appointment Doctor</th>
-
+                            <th>Doctor Id</th>
+                            <th>Doctor First Name</th>
+                            <th>Doctor Last Name</th>
+                            <th>Doctor Address</th>
+                            <th>Doctor Phone</th>
+                            <th>Doctor Country</th>
+                            <th>Doctor City</th>
+                            <th>Doctor Sex</th>
+                            <th>Doctor Specialization</th>
+                            <th>Doctor Rating</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="appointment : ${appointmentList}">
-                            <td th:text="${appointment.idAppointment}">Appointment ID</td>
-                            <td th:text="${appointment.date}">Appointment Date</td>
-                            <td th:text="${appointment.patient.getFirstName()}">Appointment Patient</td>
-                            <td th:text="${appointment.description}">Appointment Description</td>
-                            <td th:text="${appointment.doctor.getFirstName()}">Appointment Doctor</td>
+                        <tr th:each="doctor  : ${listDoctors}">
+                            <td th:text="${doctor.iddoctor}">Doctor ID</td>
+                            <td th:text="${doctor.firstName}">First Name</td>
+                            <td th:text="${doctor.lastName}">Last Name</td>
+                            <td th:text="${doctor.address}">Address</td>
+                            <td th:text="${doctor.phone}">Phone </td>
+                            <td th:text="${doctor.country}">Country</td>
+                            <td th:text="${doctor.city}">city</td>
+                            <td th:text="${doctor.sex}">sex</td>
+                            <td th:text="${doctor.specialization}">specialization</td>
+                            <td th:text="${doctor.avgRatings()}">ratings</td>
 
-
-                            <td>
-
-                                <!--   <a th:href="@{'http://localhost:8080/edit/' + ${doctor.iddoctor}}">Edit</a>
-                                   &nbsp;&nbsp;&nbsp;-->
-                                <!--                                <a th:href="@{'/createAppointment/' + ${doctor.iddoctor}}'">Reserve</a>-->
-                                <!--   <a th:href="@{/createAppointment/} + ${doctor.iddoctor}">Reserve</a>-->
-
-
-                            </td>
                         </tr>
                         </tbody>
                     </table>

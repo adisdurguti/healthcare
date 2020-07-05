@@ -113,7 +113,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Health Care</title>
+
+
 
     <!-- Custom fonts for this template-->
     <link href="../../static/vendor/fontawesome-free/css/all.min.css"  th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css"/>
@@ -121,6 +123,8 @@
 
     <!-- Custom styles for this template-->
     <link href="../../static/css/sb-admin-2.min.css"  th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet"/>
+
+
 
 </head>
 
@@ -133,7 +137,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/patient}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -145,7 +149,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" th:href="@{/patient}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -411,7 +415,7 @@
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${patient.toString()}"></span>
                             <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                         </a>
                         <!-- Dropdown - User Information -->
@@ -447,7 +451,7 @@
                 <div align="center">
                     <h1>Create appointment</h1>
                     <br />
-                    <form action="#" th:action="@{/saveAppointment}" th:object="${appointment}"
+                    <form id = "myform" action="#" th:action="@{/saveAppointment}" th:object="${appointment}"
                           method="post">
 
                         <!--  <div class="form-group">
@@ -461,10 +465,29 @@
                               <option value="">13:00</option>
 
                           </select>-->
+                        <div class="form-group">
+                            <label >Date:</label>
+                            <input type="date" th:field="*{date}"th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label >Select Appointment Time:</label>
+                            <select class="form-control" name="" th:field="*{time}" id="">
+                                <option value="08:00 - 09:00">08:00 - 09:00</option>
+                                <option value="09:00 - 10:00">09:00 - 10:00</option>
+                                <option value="10:00 - 11:00">10:00 - 11:00</option>
+                                <option value="11:00 - 12:00">11:00 - 12:00</option>
+                                <option value="12:00 - 13:00">12:00 - 13:00</option>
+                                <option value="13:00 - 14:00">13:00 - 14:00</option>
+                                <option value="14:00 - 15:00">14:00 - 15:00</option>
 
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label >Description:</label>
-                            <input type="text" th:field="*{description}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter description">
+                            <!--<textarea type="text" th:field="*{description}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter description"></textarea>-->
+                            <textarea class="form-control" name="news_content" rows="17" cols="80" th:field="*{description}" form="myform">
+
+                            </textarea>
                         </div>
 
                         <!--  <div class="form-group">
