@@ -1,88 +1,4 @@
-<!--
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8"/>
-    <title>Edit Doctor</title>
-    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    &lt;!&ndash; jQuery library &ndash;&gt;
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    &lt;!&ndash; Latest compiled JavaScript &ndash;&gt;
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-        .nav-link{
-            color: aliceblue;
-        }
-
-    </style>
-
-</head>
-<body>
-
-<nav style="background: #120136;margin-bottom: 0px;" class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a style="color: #fcbf1e;" class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">HealthCare System</a>
-</nav>
-
-
-
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
-    <div align="center">
-        <h1>Add diagnose</h1>
-        <br />
-        <form action="#" th:action="@{/saveDiagnose}" th:object="${diagnose}"
-              method="post">
-
-
-
-            <div class="form-group">
-                <label >Diagnose:</label>
-                <input type="text" th:field="*{patientDiagnose}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter diagnose">
-            </div>
-
-
-            <div class="form-group">
-                <label >treatment:</label>
-                <input type="text" th:field="*{treatment}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter treatment">
-            </div>
-
-            <tr>
-                <td colspan="2"><button type="submit">Save</button> </td>
-            </tr>
-
-        </form>
-    </div>
-
-
-
-
-
-
-</main>
-</div>
-</div>
-
-
-&lt;!&ndash; end of bootstrap&ndash;&gt;
-
-
-
-</table>
-</div>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-<script src="dashboard.js"></script>
-
-</body>
-</html>
-
--->
 
 
 <!DOCTYPE html>
@@ -426,21 +342,31 @@
                 <div align="center">
                     <h1>Add diagnose</h1>
                     <br />
-                    <form action="#" th:action="@{/saveDiagnose}" th:object="${diagnose}"
+                    <form id="myform"action="#" th:action="@{/saveDiagnose}" th:object="${diagnose}"
                           method="post">
 
 
+                        <h2 style="display: inline">Patient : </h2>
+                        <h2 style="display: inline" th:text="${patientDiagnose.toString()}"></h2>
 
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top:30px;">
                             <label >Diagnose:</label>
-                            <input type="text" th:field="*{diagnosePatient}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter diagnose">
+                            <textarea class="form-control" name="news_content" rows="10" cols="80" th:field="*{diagnosePatient}" form="myform">
+
+                            </textarea>
+
                         </div>
 
 
                         <div class="form-group">
-                            <label >treatment:</label>
-                            <input type="text" th:field="*{treatment}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter treatment">
+                            <label >Treatment:</label>
+                            <textarea class="form-control" name="news_content" rows="10" cols="80" th:field="*{treatment}" form="myform">
+
+                            </textarea>
+
                         </div>
+
+
 
                         <tr>
                             <td colspan="2"><button type="submit">Save</button> </td>

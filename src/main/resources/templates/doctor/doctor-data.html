@@ -1,113 +1,3 @@
-<!--<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Patient data</title>
-    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-    &lt;!&ndash; jQuery library &ndash;&gt;
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    &lt;!&ndash; Latest compiled JavaScript &ndash;&gt;
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-        .nav-link{
-            color: aliceblue;
-        }
-
-    </style>
-</head>
-<body>
-
-<h2>Fill your data</h2>
-
-<form action="#" th:action="@{/registerDoctorData}" th:object="${doctor}"
-      method="post">
-
-    <div class="form-group">
-        <label >Enter your first name:</label>
-        <input type="text" th:field="*{firstName}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your first name">
-    </div>
-
-    <div class="form-group">
-        <label >Enter your last name:</label>
-        <input type="text" th:field="*{lastName}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your Last Name">
-    </div>
-    <div class="form-group">
-        <label >Enter your address:</label>
-        <input type="text" th:field="*{address}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your address">
-    </div>
-    <div class="form-group">
-        <label >Enter your phone number:</label>
-        <input type="text" th:field="*{phone}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your number">
-    </div>
-
-    <div class="form-group">
-        <label >Enter your country:</label>
-        <input type="text" th:field="*{country}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your country">
-    </div>
-
-    <div class="form-group">
-        <label>Enter your city:</label>
-        <input type="text" th:field="*{city}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your city">
-    </div>
-
-    <div class="form-group">
-        <label>Enter your sex:</label>
-        <input type="text" th:field="*{sex}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your sex">
-    </div>
-
-    <div class="form-group">
-        <label>Enter your specialization:</label>
-        <input type="text" th:field="*{specialization}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your specialization">
-    </div>
-
-
-    &lt;!&ndash;<div class="form-group">
-        <label>Enter your userId:</label>
-        <input type="email" th:field="*{city}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your email">
-    </div>&ndash;&gt;
-
-
-    &lt;!&ndash;
-
-    <table border="0" cellpadding="10">
-        <tr>
-            <td>Doctor Name:</td>
-            <td>
-                <input type="text" th:field="*{name}" />
-            </td>
-        </tr>
-        <tr>
-            <td>Doctor specialization:</td>
-            <td><input type="text" th:field="*{specialization}" /></td>
-        </tr>
-        <tr>
-            <td>Doctor Address:</td>
-            <td><input type="text" th:field="*{address}" /></td>
-        </tr>
-        <tr>
-            <td>Doctor Department:</td>
-            <td><input type="text" th:field="*{departmentid}" /></td>
-        </tr>
-
-        &ndash;&gt;
-    <tr>
-        <td colspan="2"><button type="submit">Save</button> </td>
-    </tr>
-    </table>
-
-</form>
-
-
-
-</body>
-</html>-->
-
-
-
 
 
 <!DOCTYPE html>
@@ -482,48 +372,28 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Enter your sex:</label>
-                        <input type="text" th:field="*{sex}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your sex">
-                    </div>
-
-                    <div class="form-group">
                         <label>Enter your specialization:</label>
                         <input type="text" th:field="*{specialization}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your specialization">
                     </div>
 
+                    <div class="form-group" style="display: inline-block; margin-left: 20px;">
 
-                    <!--<div class="form-group">
-                        <label>Enter your userId:</label>
-                        <input type="email" th:field="*{city}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your email">
-                    </div>-->
+                        <input style="position:relative;" type="radio" id="male" name="sex" class="custom-control-input" value="M" th:field="*{sex}">
+                        <label class="custom-control-label" for="male">Male</label>
+                    </div>
+
+                    <div class="form-group" style="display: inline-block; margin-left: 20px;">
+
+                        <input style="position:relative;" type="radio" id="female" name="sex" class="custom-control-input" value="F" th:field="*{sex}">
+                        <label class="custom-control-label" for="female">Female</label>
+                    </div>
 
 
-                    <!--
-
-                    <table border="0" cellpadding="10">
-                        <tr>
-                            <td>Doctor Name:</td>
-                            <td>
-                                <input type="text" th:field="*{name}" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Doctor specialization:</td>
-                            <td><input type="text" th:field="*{specialization}" /></td>
-                        </tr>
-                        <tr>
-                            <td>Doctor Address:</td>
-                            <td><input type="text" th:field="*{address}" /></td>
-                        </tr>
-                        <tr>
-                            <td>Doctor Department:</td>
-                            <td><input type="text" th:field="*{departmentid}" /></td>
-                        </tr>
-
-                        -->
                     <tr>
-                        <td colspan="2"><button type="submit">Save</button> </td>
+                        <button type="submit" style="display: block; width: 100%;" class="btn btn-primary">Save</button> </td>
                     </tr>
+
+
                     </table>
 
                 </form>

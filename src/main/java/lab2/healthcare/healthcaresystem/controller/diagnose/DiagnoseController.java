@@ -42,70 +42,7 @@ public class DiagnoseController {
 
 
 
-/*
-    @RequestMapping(value = "/addDiagnose/{idAppointment}/{idDoctor}/{idPatient}", method = RequestMethod.POST)
-    public String addDiagnose(@PathVariable(name = "idAppointment") Long idAppointment, @PathVariable(name = "idDoctor") Long idDoctor, @PathVariable(name = "idPatient") Long idPatient, @ModelAttribute("diagnose") Diagnose diagnose, Model model) {
 
-
-       *//* String username;
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-
-        User currentUser = new User();
-
-        currentUser = userService.findUserByUsername(username);
-
-        Patient currentPatient = new Patient();
-
-        currentPatient = patientRepository.findByUser(currentUser);
-*//*
-
-
-
-
-
-
-        Appointment appointment = new Appointment();
-
-        appointment = appointmentService.get(idAppointment);
-
-        Doctor doctor = new Doctor();
-
-        doctor = doctorService.get(idDoctor);
-
-        Patient patient = new Patient();
-
-        patient = patientService.get(idPatient);
-
-       // Diagnose diagnose = new Diagnose();
-
-        Date date = new Date();
-
-        diagnose.setPatient(patient);
-        diagnose.setDateCreated(date);
-        diagnose.setDoctor(doctor);
-        diagnose.setAppointment(appointment);
-        diagnoseService.save(diagnose);
-
-
-    *//*    ModelAndView mav = new ModelAndView("doctor/createAppointment");*//*
-
-        Doctor doctor1 = appointmentService.currentDoctor();
-
-        List<Appointment> appointments = appointmentService.getAppointmentsByDoctorId(doctor1);
-
-        model.addAttribute("listAppointments", appointments);
-
-
-
-
-        return "doctor/appointment-list";
-    }*/
 
 
     @RequestMapping(value = "/addDiagnose/{idAppointment}/{idDoctor}/{idPatient}", method = RequestMethod.GET)
@@ -132,14 +69,6 @@ public class DiagnoseController {
         return mav;
     }
 
-    /*@GetMapping("/add-diagnose")
-    @ResponseBody
-    public Appointment findDiagnose(Appointment appointment, Doctor doctor , Patient patient){
-        appointmentDiagnose = appointmentService.get(appointment.getIdAppointment());
-        doctorDiagnose = doctorService.get(doctor.getIddoctor());
-        patientDiagnose = patientService.get(patient.getIdpatient());
-        return appointmentRepository.findByIds(appointmentDiagnose,doctorDiagnose,patientDiagnose);
-    }*/
 
 
 

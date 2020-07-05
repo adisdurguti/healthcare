@@ -31,8 +31,10 @@ public class AdminController {
     @RequestMapping("/registerDoctor")
     public String registerDoctor(Model model) {
 
+        User userDoctor = new User();
         User user = userService.currentUser();
         model.addAttribute("user", user);
+        model.addAttribute("userDoctor", userDoctor);
 
         return "admin/register-doctor";
     }
