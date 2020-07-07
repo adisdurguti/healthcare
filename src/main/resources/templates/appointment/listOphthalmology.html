@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
@@ -309,7 +310,7 @@
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"th:text="${patient.toString()}"></span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${patient.toString()}"></span>
                             <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                         </a>
                         <!-- Dropdown - User Information -->
@@ -343,63 +344,57 @@
             <div class="container-fluid">
 
 
-                <h2>Fill your data</h2>
+                <h2>Doctors</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                        <tr>
+                            <!-- <th>Doctor Id</th>-->
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Country</th>
+                            <th>City</th>
+                            <th>Sex</th>
+                            <th>Specialization</th>
+                            <th>Rating</th>
+                            <th>Book</th>
+                            <th>Rate</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="doctor  : ${listOphthalmology}">
+                            <!-- <td th:text="${doctor.iddoctor}">Doctor ID</td>-->
+                            <td th:text="${doctor.firstName}">First Name</td>
+                            <td th:text="${doctor.lastName}">Last Name</td>
+                            <td th:text="${doctor.address}">Address</td>
+                            <td th:text="${doctor.phone}">Phone </td>
+                            <td th:text="${doctor.country}">Country</td>
+                            <td th:text="${doctor.city}">city</td>
+                            <td th:text="${doctor.sex}">sex</td>
+                            <td th:text="${doctor.specialization}">specialization</td>
+                            <td th:text="${doctor.avgRatings()}">ratings</td>
 
-                <form action="#" th:action="@{/registerPatientData}" th:object="${patient}"
-                      method="post">
+                            <td>
 
-                    <div class="form-group">
-                        <label >Enter your first name:</label>
-                        <input type="text" th:field="*{firstName}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your first name">
-                    </div>
+                                <!--   <a th:href="@{'http://localhost:8080/edit/' + ${doctor.iddoctor}}">Edit</a>
+                                   &nbsp;&nbsp;&nbsp;-->
 
-                    <div class="form-group">
-                        <label >Enter your last name:</label>
-                        <input type="text" th:field="*{lastName}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your Last Name">
-                    </div>
-                    <div class="form-group">
-                        <label >Enter your address:</label>
-                        <input type="text" th:field="*{address}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your address">
-                    </div>
-                    <div class="form-group">
-                        <label >Enter your phone number:</label>
-                        <input type="text" th:field="*{phone}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your number">
-                    </div>
+                                <!--                                <a th:href="@{'/createAppointment/' + ${doctor.iddoctor}}'">Reserve</a>-->
 
-                    <div class="form-group">
-                        <label >Enter your country:</label>
-                        <input type="text" th:field="*{country}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your country">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Enter your city:</label>
-                        <input type="text" th:field="*{city}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your city">
-                    </div>
-
-                    <div class="form-group" style="display: inline-block; margin-left: 20px;">
-
-                        <input style="position:relative;" type="radio" id="male" name="sex" class="custom-control-input" value="M" th:field="*{sex}">
-                        <label class="custom-control-label" for="male">Male</label>
-                    </div>
-
-                    <div class="form-group" style="display: inline-block; margin-left: 20px;">
-
-                        <input style="position:relative;" type="radio" id="female" name="sex" class="custom-control-input" value="F" th:field="*{sex}">
-                        <label class="custom-control-label" for="female">Female</label>
-                    </div>
-
-<!--
-                        <label>Enter your sex:</label>
-                        <input type="text" th:field="*{sex}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your sex">-->
+                                <a th:href="@{/createAppointment/} + ${doctor.iddoctor}"><img style="width: 40px;height: 40px;"  th:src="@{/images/bookIcon.png}"/></a>
 
 
-                    <tr>
-                        <button type="submit" style="display: block; width: 100%;" class="btn btn-primary">Save</button> </td>
-                    </tr>
+                            </td>
+
+                            <td>
+                                <a th:href="@{/rate-doctor/} + ${doctor.iddoctor}"><img style="width: 35px;height: 35px;"  th:src="@{/images/rateIcon.png}"/></a>
+                            </td>
+                        </tr>
+                        </tbody>
                     </table>
-
-                </form>
-
+                </div>
 
 
             </div>

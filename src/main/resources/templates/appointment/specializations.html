@@ -1,3 +1,25 @@
+<!--<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Hi <span th:utext="${userName}"></span>, this is the home page.</h2>
+  &lt;!&ndash;  <a th:href="@{/patientData}">Fill your personal data</a><br>&ndash;&gt;
+  &lt;!&ndash;  <a href="http://localhost:8081/patientData">Fill your personal data</a>&ndash;&gt;
+    <a th:href="@{/patientData}">Fill your personal data</a><br>
+    <a th:href="@{/listOfDoctors}">Create appointment</a><br>
+    <a th:href="@{/patientAppointments}">My appointments</a><br>
+    <a th:href="@{/logout}">Sign out</a>
+</div>
+</body>
+</html>-->
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -35,7 +57,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">HealthCare </div>
+            <div class="sidebar-brand-text mx-3">HealthCare</div>
         </a>
 
         <!-- Divider -->
@@ -309,7 +331,7 @@
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"th:text="${patient.toString()}"></span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small "th:if="patient" th:text="${patient.toString()}"></span>
                             <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                         </a>
                         <!-- Dropdown - User Information -->
@@ -341,67 +363,46 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-
-
-                <h2>Fill your data</h2>
-
-                <form action="#" th:action="@{/registerPatientData}" th:object="${patient}"
-                      method="post">
-
-                    <div class="form-group">
-                        <label >Enter your first name:</label>
-                        <input type="text" th:field="*{firstName}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your first name">
+                <h2>Reparts</h2>
+                    <div>
+                        <a href="/listCardiologs">Cardiologs</a>
                     </div>
-
-                    <div class="form-group">
-                        <label >Enter your last name:</label>
-                        <input type="text" th:field="*{lastName}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your Last Name">
-                    </div>
-                    <div class="form-group">
-                        <label >Enter your address:</label>
-                        <input type="text" th:field="*{address}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your address">
-                    </div>
-                    <div class="form-group">
-                        <label >Enter your phone number:</label>
-                        <input type="text" th:field="*{phone}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your number">
-                    </div>
-
-                    <div class="form-group">
-                        <label >Enter your country:</label>
-                        <input type="text" th:field="*{country}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your country">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Enter your city:</label>
-                        <input type="text" th:field="*{city}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your city">
-                    </div>
-
-                    <div class="form-group" style="display: inline-block; margin-left: 20px;">
-
-                        <input style="position:relative;" type="radio" id="male" name="sex" class="custom-control-input" value="M" th:field="*{sex}">
-                        <label class="custom-control-label" for="male">Male</label>
-                    </div>
-
-                    <div class="form-group" style="display: inline-block; margin-left: 20px;">
-
-                        <input style="position:relative;" type="radio" id="female" name="sex" class="custom-control-input" value="F" th:field="*{sex}">
-                        <label class="custom-control-label" for="female">Female</label>
-                    </div>
-
-<!--
-                        <label>Enter your sex:</label>
-                        <input type="text" th:field="*{sex}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your sex">-->
-
-
-                    <tr>
-                        <button type="submit" style="display: block; width: 100%;" class="btn btn-primary">Save</button> </td>
-                    </tr>
-                    </table>
-
-                </form>
-
-
-
+                <div>
+                    <a href="/listDermatology">Dermatology</a>
+                </div>
+                <div>
+                    <a href="/listNeurology">Neurology</a>
+                </div>
+                <div>
+                    <a href="/listObsterics">Obsterics</a>
+                </div>
+                <div>
+                    <a href="/listOncology">Oncology</a>
+                </div>
+                <div>
+                    <a href="/listOphthalmology">Ophthalmology</a>
+                </div>
+                <div>
+                    <a href="/listOrthopedics">Orthopedics</a>
+                </div>
+                <div>
+                    <a href="/listPediatrics">Pediatrics</a>
+                </div>
+                <div>
+                    <a href="/listPlasticSurgery">Plastic Surgery</a>
+                </div>
+                <div>
+                    <a href="/listPsychiatry">Psychiatry</a>
+                </div>
+                <div>
+                    <a href="/listRadiology">Radiology</a>
+                </div>
+                <div>
+                    <a href="/listStomatology">Stomatology</a>
+                </div>
+                <div>
+                    <a href="/listVirology">Virology</a>
+                </div>
             </div>
             <!-- /.container-fluid -->
 

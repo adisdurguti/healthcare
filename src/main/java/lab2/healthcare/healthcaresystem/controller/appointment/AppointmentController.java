@@ -1,12 +1,14 @@
 package lab2.healthcare.healthcaresystem.controller.appointment;
 
 import lab2.healthcare.healthcaresystem.models.*;
+import lab2.healthcare.healthcaresystem.repository.DoctorRepository;
 import lab2.healthcare.healthcaresystem.repository.PatientRepository;
 import lab2.healthcare.healthcaresystem.service.AppointmentServiceImpl;
 import lab2.healthcare.healthcaresystem.service.DoctorService;
 import lab2.healthcare.healthcaresystem.service.PatientService;
 import lab2.healthcare.healthcaresystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,11 @@ public class AppointmentController {
     UserService userService;
     @Autowired
     PatientRepository patientRepository;
+
+    @Qualifier("doctorRepository")
+    @Autowired
+    DoctorRepository doctorRepository;
+
     public Doctor doctorSelected;
 
 
@@ -95,6 +102,218 @@ public class AppointmentController {
         }
         model.addAttribute("listDoctors", listDoctors);
         return "appointment/listOfDoctors";
+    }
+
+    @RequestMapping("/bookappointment")
+    public String bookAppointment(Model model) {
+
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+
+        return "appointment/specializations";
+    }
+
+    @RequestMapping("/listCardiologs")
+    public String listCardiologs(Model model) {
+
+        List<Doctor> listCardiologs = doctorRepository.findAllBySpecialization("Cardiology");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listCardiologs", listCardiologs);
+        return "appointment/listCardiologs";
+    }
+
+    @RequestMapping("/listPediatrics")
+    public String listPediatrics(Model model) {
+
+        List<Doctor> listPediatrics = doctorRepository.findAllBySpecialization("Pediatrics");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listPediatrics", listPediatrics);
+        return "appointment/listPediatrics";
+    }
+    @RequestMapping("/listVirology")
+    public String listVirology(Model model) {
+
+        List<Doctor> listVirology = doctorRepository.findAllBySpecialization("Virology");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listVirology", listVirology);
+        return "appointment/listVirology";
+    }
+    @RequestMapping("/listRadiology")
+    public String listRadiology(Model model) {
+
+        List<Doctor> listRadiology = doctorRepository.findAllBySpecialization("Radiology");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listRadiology", listRadiology);
+        return "appointment/listRadiology";
+    }
+    @RequestMapping("/listNeurology")
+    public String listNeurology(Model model) {
+
+        List<Doctor> listNeurology = doctorRepository.findAllBySpecialization("Neurology");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listNeurology", listNeurology);
+        return "appointment/listNeurology";
+    }
+    @RequestMapping("/listOrthopedics")
+    public String listOrthopedics(Model model) {
+
+        List<Doctor> listOrthopedics = doctorRepository.findAllBySpecialization("Orthopedics");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listOrthopedics", listOrthopedics);
+        return "appointment/listOrthopedics";
+    }
+    @RequestMapping("/listPsychiatry")
+    public String listPsychiatry(Model model) {
+
+        List<Doctor> listPsychiatry = doctorRepository.findAllBySpecialization("Psychiatry");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listPsychiatry", listPsychiatry);
+        return "appointment/listPsychiatry";
+    }
+    @RequestMapping("/listObsterics")
+    public String listObsterics(Model model) {
+
+        List<Doctor> listObsterics = doctorRepository.findAllBySpecialization("Obsterics");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listObsterics", listObsterics);
+        return "appointment/listObsterics";
+    }
+    @RequestMapping("/listStomatology")
+    public String listStomatology(Model model) {
+
+        List<Doctor> listStomatology = doctorRepository.findAllBySpecialization("Stomatology");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listStomatology", listStomatology);
+        return "appointment/listStomatology";
+    }
+    @RequestMapping("/listDermatology")
+    public String listDermatology(Model model) {
+
+        List<Doctor> listDermatology = doctorRepository.findAllBySpecialization("Dermatology");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listDermatology", listDermatology);
+        return "appointment/listDermatology";
+    }
+    @RequestMapping("/listOphthalmology")
+    public String listOphthalmology(Model model) {
+
+        List<Doctor> listOphthalmology = doctorRepository.findAllBySpecialization("Ophthalmology");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listOphthalmology", listOphthalmology);
+        return "appointment/listOphthalmology";
+    }
+    @RequestMapping("/listOncology")
+    public String listOncology(Model model) {
+
+        List<Doctor> listOncology = doctorRepository.findAllBySpecialization("Oncology");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listOncology", listOncology);
+        return "appointment/listOncology";
+    }
+    @RequestMapping("/listPlasticSurgery")
+    public String listPlasticSurgery(Model model) {
+
+        List<Doctor> listPlasticSurgery = doctorRepository.findAllBySpecialization("Plastic Surgery");
+        Patient patient = patientService.currentPatient();
+
+        if(patient==null) {
+            patient=new Patient();
+            model.addAttribute("patient", patient);
+        }else{
+            model.addAttribute("patient",patient);
+        }
+        model.addAttribute("listPlasticSurgery", listPlasticSurgery);
+        return "appointment/listPlasticSurgery";
     }
 
 

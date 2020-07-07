@@ -349,7 +349,8 @@
             <div class="container-fluid">
 
                 <div align="center">
-                    <h1>Create appointment</h1>
+                    <h2 style="display: inline">Book appointment with Dr.</h2>
+                    <h2 style="display: inline" th:text="${doctorSelected.toString()}"></h2>
                     <br />
                     <form id="myform" action="#" th:action="@{/saveAppointment}" th:object="${appointment}"
                           method="post">
