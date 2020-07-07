@@ -372,8 +372,22 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Enter your specialization:</label>
-                        <input type="text" th:field="*{specialization}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your specialization">
+                        <label >Select Specialization:</label>
+                        <select class="form-control" name="" th:field="*{specialization}" id="">
+                            <option style="background-image: url(images/cardiology.png); width: 5px; height: 5px;" value="Cardiology">Cardiology</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Virology">Virology</option>
+                            <option value="Radiology">Radiology</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                            <option value="Psychiatry">Psychiatry</option>
+                            <option value="Obsterics">Obsterics</option>
+                            <option value="Stomatology">Stomatology</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="Ophthalmology">Ophthalmology</option>
+                            <option value="Oncology">Oncology</option>
+                            <option value="Plastic Surgery">Plastic Surgery</option>
+                        </select>
                     </div>
 
                     <div class="form-group" style="display: inline-block; margin-left: 20px;">
