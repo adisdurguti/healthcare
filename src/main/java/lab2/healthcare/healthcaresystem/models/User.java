@@ -22,7 +22,7 @@ public class User {
 
 
     @NotBlank
-    @Size(max = 15)
+    @Size(min = 3 , max = 15)
     private String username;
 
     @NaturalId

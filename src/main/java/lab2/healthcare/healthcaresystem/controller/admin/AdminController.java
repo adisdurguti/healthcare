@@ -44,7 +44,7 @@ public class AdminController {
         User userExists = userService.findUserByUsername(user.getUsername());
 
         if (userExists != null) {
-            bindingResult.rejectValue("email", "error.user", "This email already exists");
+            bindingResult.rejectValue("username", "error.user", "This username already exists");
         }
         if (bindingResult.hasErrors()) {
             model.setViewName("admin/register-doctor");

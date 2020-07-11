@@ -351,19 +351,19 @@
 
                         <div class="form-group" style="margin-top:30px;">
                             <label >Diagnose:</label>
-                            <textarea class="form-control" name="news_content" rows="10" cols="80" th:field="*{diagnosePatient}" form="myform">
+                            <textarea class="form-control" name="news_content" rows="10" cols="80" th:field="*{diagnosePatient}" data-validate="Enter FirstName" form="myform">
 
                             </textarea>
-
+                            <span style="color:purple; "th:if="${#fields.hasErrors('diagnosePatient')}" th:errors="*{diagnosePatient}">Diagnose Error</span>
                         </div>
 
 
                         <div class="form-group">
                             <label >Treatment:</label>
-                            <textarea class="form-control" name="news_content" rows="10" cols="80" th:field="*{treatment}" form="myform">
+                            <textarea class="form-control" name="news_content" rows="10" cols="80" th:field="*{treatment}" data-validate="Enter FirstName" form="myform">
 
                             </textarea>
-
+                            <span style="color:purple; "th:if="${#fields.hasErrors('treatment')}" th:errors="*{treatment}">Treatment Error</span>
                         </div>
 
 

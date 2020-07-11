@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -18,9 +21,11 @@ public class Rating {
 
     private Date date;
 
+    @NotBlank
+    @Size(min = 5,max = 100)
     private String feedback;
 
-
+    @NotNull
     private double ratingValue;
 
     @ManyToOne

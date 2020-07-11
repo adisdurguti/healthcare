@@ -124,9 +124,9 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="charts.html" th:href="@{/listOfDoctors}">
+            <a class="nav-link" href="charts.html" th:href="@{/bookappointment}">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Create appointment</span></a>
+                <span>Book appointment</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
@@ -369,6 +369,7 @@
                         <div class="form-group">
                             <label >Date:</label>
                             <input type="date" th:field="*{date}"th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" class="form-control">
+                            <span style="color:purple; "th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</span>
                         </div>
                         <div class="form-group">
                             <label >Select Appointment Time:</label>
@@ -389,6 +390,7 @@
                             <textarea class="form-control" name="news_content" rows="17" cols="80" th:field="*{description}" form="myform">
 
                             </textarea>
+                            <span style="color:purple; "th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</span>
                         </div>
 
                         <!--  <div class="form-group">

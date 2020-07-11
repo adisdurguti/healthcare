@@ -166,10 +166,12 @@
                 <div class="wrap-input100 validate-input" data-validate = "Enter Email">
                     <input class="input100" type="text" th:field="*{email}" name="email" placeholder="Email">
                     <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
                 </div>
                 <div class="wrap-input100 validate-input" data-validate="Enter Username">
                     <input class="input100" type="text" th:field="*{username}" name="username" placeholder="Username">
                     <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</span>
                 </div>
                 <div class="col-md-3">
                     <div class="form-control-feedback">
@@ -180,6 +182,7 @@
                 <div class="wrap-input100 validate-input" data-validate="Enter Password">
                     <input class="input100" type="password" th:field="*{password}" name="password" placeholder="Password">
                     <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
                 </div>
                 <div class="col-md-3">
                     <div class="form-control-feedback">

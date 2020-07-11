@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -19,8 +21,12 @@ public class Diagnose {
 
     private Date dateCreated;
 
+    @NotBlank
+    @Size(min = 5,max = 200)
     private String diagnosePatient;
 
+    @NotBlank
+    @Size(min = 5,max = 200)
     private String treatment;
 
     @OneToOne(optional = false)
@@ -65,7 +71,7 @@ public class Diagnose {
     }
 
     public String getDiagnosePatient() {
-        return diagnosePatient;
+       return diagnosePatient;
     }
 
     public void setDiagnosePatient(String diagnosePatient) {
@@ -73,7 +79,7 @@ public class Diagnose {
     }
 
     public String getTreatment() {
-        return treatment;
+      return treatment;
     }
 
     public void setTreatment(String treatment) {
