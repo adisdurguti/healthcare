@@ -1,5 +1,6 @@
 package lab2.healthcare.healthcaresystem.models;
 
+import lab2.healthcare.healthcaresystem.validator.Password;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,8 +32,7 @@ public class User {
     @NotBlank
     @Size(max = 40)
     private String email;
-    @NotBlank
-    @Size(max = 100)
+    @Password
     private String password;
     @Column(name = "active")
     private int active;
