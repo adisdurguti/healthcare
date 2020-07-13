@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -16,7 +18,11 @@ public class Diagnose {
     @Column(name = "id")
     private Long id;
     private Date dateCreated;
+    @NotBlank
+    @Size(min = 5, max = 200)
     private String diagnosePatient;
+    @NotBlank
+    @Size(min = 5, max = 200)
     private String treatment;
     @OneToOne(optional = false)
     @JoinColumn(name = "idAppointment", referencedColumnName = "idAppointment")
@@ -27,17 +33,4 @@ public class Diagnose {
     @ManyToOne
     @JoinColumn(name = "iddoctor")
     private Doctor doctor;
-
-    public Diagnose() {
-    }
-
-    public Diagnose(Long id, Date dateCreated, String diagnosePatient, String treatment, Appointment appointment, Patient patient, Doctor doctor) {
-        this.id = id;
-        this.dateCreated = dateCreated;
-        this.diagnosePatient = diagnosePatient;
-        this.treatment = treatment;
-        this.appointment = appointment;
-        this.patient = patient;
-        this.doctor = doctor;
-    }
 }

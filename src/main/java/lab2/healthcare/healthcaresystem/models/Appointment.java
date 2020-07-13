@@ -1,11 +1,15 @@
 package lab2.healthcare.healthcaresystem.models;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +18,8 @@ import java.util.Date;
 @Table(name = "appointment")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Appointment implements Comparable<Appointment> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +27,10 @@ public class Appointment implements Comparable<Appointment> {
     private Long idAppointment;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
+    @NotBlank
     private String time;
+    @NotBlank
+    @Size(min = 5, max = 150)
     private String description;
     @Enumerated(EnumType.STRING)
     private AppointmentStatusEnum status;
@@ -31,18 +40,6 @@ public class Appointment implements Comparable<Appointment> {
     @ManyToOne
     @JoinColumn(name = "iddoctor")
     private Doctor doctor;
-
-    public Appointment() {
-    }
-
-    public Appointment(Long idAppointment, Date date, String time, String description, Patient patient, Doctor doctor) {
-        this.idAppointment = idAppointment;
-        this.date = date;
-        this.time = time;
-        this.description = description;
-        this.patient = patient;
-        this.doctor = doctor;
-    }
 
     @Override
     public int compareTo(Appointment o) {

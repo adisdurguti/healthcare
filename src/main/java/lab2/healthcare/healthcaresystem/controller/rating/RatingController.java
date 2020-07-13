@@ -8,12 +8,14 @@ import lab2.healthcare.healthcaresystem.service.PatientService;
 import lab2.healthcare.healthcaresystem.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Date;
 
 @Controller
@@ -52,24 +54,38 @@ public class RatingController {
     }
 
     @RequestMapping(value = "/save-rating", method = RequestMethod.POST)
-    public ModelAndView saveRating(@ModelAttribute("rating") Rating rating) {
+    public ModelAndView saveRating(@ModelAttribute("rating") @Valid Rating rating, BindingResult bindingResult) {
 
-        Date testDate = new Date();
-        ModelAndView mav = new ModelAndView("redirect:/listOfDoctors");
-        rating.setDoctor(doctorSelected);
-        rating.setDate(testDate);
-        rating.setPatient(patientService.currentPatient());
-
-        ratingService.save(rating);
-        Patient patient = patientService.currentPatient();
-        if (patient == null) {
-            patient = new Patient();
-            mav.addObject("patient", patient);
+        if (bindingResult.hasErrors()) {
+            ModelAndView model = new ModelAndView();
+            Patient patient = patientService.currentPatient();
+            if (patient == null) {
+                patient = new Patient();
+                model.addObject("patient", patient);
+            } else {
+                model.addObject("patient", patient);
+            }
+            model.addObject("doctorSelected", doctorSelected);
+            model.setViewName("patient/rate-doctor");
+            return model;
         } else {
-            mav.addObject("patient", patient);
-        }
+            Date testDate = new Date();
+            ModelAndView mav = new ModelAndView("redirect:/patient");
+            rating.setDoctor(doctorSelected);
+            rating.setDate(testDate);
+            rating.setPatient(patientService.currentPatient());
 
-        return mav;
+            ratingService.save(rating);
+            Patient patient = patientService.currentPatient();
+            if (patient == null) {
+                patient = new Patient();
+                mav.addObject("patient", patient);
+            } else {
+                mav.addObject("patient", patient);
+            }
+
+            return mav;
+        }
     }
 
 }

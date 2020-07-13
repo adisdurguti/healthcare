@@ -362,6 +362,7 @@
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
+                            <span style="color:purple; "th:if="${#fields.hasErrors('ratingValue')}" th:errors="*{ratingValue}">Rating Value Error</span>
                         </div>
 
 
@@ -371,6 +372,7 @@
                             <textarea class="form-control" name="news_content" rows="10" cols="80" th:field="*{feedback}" form="myform">
 
                             </textarea>
+                            <span style="color:purple; "th:if="${#fields.hasErrors('feedback')}" th:errors="*{feedback}">Feedback Error</span>
                         </div>
 
                         <tr>

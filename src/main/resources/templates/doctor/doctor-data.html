@@ -346,29 +346,35 @@
                     <div class="form-group">
                         <label >Enter your first name:</label>
                         <input type="text" th:field="*{firstName}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your first name">
+                        <span style="color:purple;"th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</span>
                     </div>
 
                     <div class="form-group">
                         <label >Enter your last name:</label>
                         <input type="text" th:field="*{lastName}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your Last Name">
+                        <span style="color:purple;"th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</span>
                     </div>
                     <div class="form-group">
                         <label >Enter your address:</label>
                         <input type="text" th:field="*{address}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your address">
+                        <span style="color:purple;"th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</span>
                     </div>
                     <div class="form-group">
                         <label >Enter your phone number:</label>
                         <input type="text" th:field="*{phone}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your number">
+                        <span style="color:purple;"th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</span>
                     </div>
 
                     <div class="form-group">
                         <label >Enter your country:</label>
                         <input type="text" th:field="*{country}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your country">
+                        <span style="color:purple;"th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Country Error</span>
                     </div>
 
                     <div class="form-group">
                         <label>Enter your city:</label>
                         <input type="text" th:field="*{city}" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your city">
+                        <span style="color:purple;"th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Address Error</span>
                     </div>
 
                     <div class="form-group">
@@ -394,12 +400,14 @@
 
                         <input style="position:relative;" type="radio" id="male" name="sex" class="custom-control-input" value="M" th:field="*{sex}">
                         <label class="custom-control-label" for="male">Male</label>
+                        <span style="color:purple;"th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">Sex Error</span>
                     </div>
 
                     <div class="form-group" style="display: inline-block; margin-left: 20px;">
 
                         <input style="position:relative;" type="radio" id="female" name="sex" class="custom-control-input" value="F" th:field="*{sex}">
                         <label class="custom-control-label" for="female">Female</label>
+                        <span style="color:purple;"th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">Sex Error</span>
                     </div>
 
 

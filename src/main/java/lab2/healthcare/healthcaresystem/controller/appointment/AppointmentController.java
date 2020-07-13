@@ -11,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.List;
 
@@ -40,9 +42,6 @@ public class AppointmentController {
 
     @RequestMapping(value = "/createAppointment/{id}", method = RequestMethod.GET)
     public ModelAndView createAppointment(@PathVariable(name = "id") Long id) {
-
-   /*   LocalDate localDate = new LocalDate.now();
-        String currentDateString = currentDate.toString();*/
         doctorSelected = doctorService.get(id);
         Appointment appointment = new Appointment();
         ModelAndView mav = new ModelAndView("appointment/createAppointment");
@@ -57,22 +56,35 @@ public class AppointmentController {
         }
         mav.addObject("doctorSelected", doctorSelected);
         mav.addObject("appointment", appointment);
-        /*mav.addObject("currentDate",currentDate);*/
 
         return mav;
     }
 
     @RequestMapping(value = "/saveAppointment", method = RequestMethod.POST)
-    public String saveAppointment(@ModelAttribute("appointment") Appointment appointment) throws ParseException {
-        appointment.setDoctor(doctorSelected);
-       /* String date = appointment.getDate().toString();
-        Date date1=new SimpleDateFormat("mm/dd/yyyy").parse(date);
-        appointment.setDate(date1);*/
-        appointment.setPatient(patientService.currentPatient());
-        appointment.setStatus(AppointmentStatusEnum.PENDING);
-        appointmentService.save(appointment);
+    public ModelAndView saveAppointment(@ModelAttribute("appointment") @Valid Appointment appointment, BindingResult bindingResult) throws ParseException {
 
-        return "redirect:/patientAppointments";
+        if (bindingResult.hasErrors()) {
+            ModelAndView model = new ModelAndView();
+            Patient patient = patientService.currentPatient();
+
+            if (patient == null) {
+                patient = new Patient();
+                model.addObject("patient", patient);
+            } else {
+                model.addObject("patient", patient);
+            }
+            model.addObject("doctorSelected", doctorSelected);
+            model.setViewName("appointment/createAppointment");
+            return model;
+        } else {
+            ModelAndView model = new ModelAndView();
+            appointment.setDoctor(doctorSelected);
+            appointment.setPatient(patientService.currentPatient());
+            appointment.setStatus(AppointmentStatusEnum.PENDING);
+            appointmentService.save(appointment);
+            model.setViewName("redirect:/patientAppointments");
+            return model;
+        }
     }
 
     @RequestMapping("/listOfDoctors")

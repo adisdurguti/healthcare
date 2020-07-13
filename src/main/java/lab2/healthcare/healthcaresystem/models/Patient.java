@@ -21,25 +21,25 @@ public class Patient {
     @Column(name = "idpatient")
     private Long idpatient;
     @NotBlank
-    @Size(max = 100)
+    @Size(min = 3, max = 100)
     private String firstName;
     @NotBlank
-    @Size(max = 100)
+    @Size(min = 3,max = 100)
     private String lastName;
     @NotBlank
-    @Size(max = 100)
+    @Size(min = 10,max = 100)
     private String address;
     @NotBlank
-    @Size(max = 100)
+    @Size(min = 10 , max = 100)
     private String phone;
     @NotBlank
-    @Size(max = 50)
+    @Size(min = 4,max = 50)
     private String country;
     @NotBlank
-    @Size(max = 50)
+    @Size(min=4,max = 50)
     private String city;
     @NotBlank
-    @Size(max = 5)
+    @Size(max = 1)
     private String sex;
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
