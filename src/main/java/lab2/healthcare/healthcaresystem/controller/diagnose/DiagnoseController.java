@@ -13,9 +13,11 @@ import lab2.healthcare.healthcaresystem.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -73,20 +75,38 @@ public class DiagnoseController {
 
 
     @RequestMapping(value = "/saveDiagnose", method = RequestMethod.POST)
-    public String saveDiagnose(@ModelAttribute("diagnose") Diagnose diagnose, Model model) {
+    public ModelAndView saveDiagnose(@ModelAttribute("diagnose") @Valid  Diagnose diagnose, BindingResult bindingResult) {
 
-        Date date = new Date();
-        diagnose.setDateCreated(date);
-        diagnose.setAppointment(appointmentDiagnose);
-        diagnose.setDoctor(doctorDiagnose);
-        diagnose.setPatient(patientDiagnose);
-        diagnoseService.save(diagnose);
+        if(bindingResult.hasErrors()){
+            ModelAndView model = new ModelAndView();
+            Doctor doctor = doctorService.currentDoctor();
 
-        Doctor doctor = doctorService.currentDoctor();
-        List<Appointment> appointments = appointmentService.getAppointmentsByDoctorId(doctor);
-        model.addAttribute("listAppointments", appointments);
+            if(doctor==null) {
+                doctor=new Doctor();
+                model.addObject("doctor", doctor);
+            }else{
+                model.addObject("doctor",doctor);
+            }
+            model.addObject("patientDiagnose",patientDiagnose);
+            model.setViewName("doctor/add-diagnose");
+            return model;
 
-        return "redirect:/doctorAppointments";
+        }else {
+            ModelAndView model = new ModelAndView();
+            model.setViewName("redirect:/doctorAppointments");
+            Date date = new Date();
+            diagnose.setDateCreated(date);
+            diagnose.setAppointment(appointmentDiagnose);
+            diagnose.setDoctor(doctorDiagnose);
+            diagnose.setPatient(patientDiagnose);
+            diagnoseService.save(diagnose);
+
+            Doctor doctor = doctorService.currentDoctor();
+            List<Appointment> appointments = appointmentService.getAppointmentsByDoctorId(doctor);
+            model.addObject("listAppointments", appointments);
+
+            return model;
+        }
     }
 
 
@@ -98,7 +118,12 @@ public class DiagnoseController {
         Patient patient = patientService.currentPatient();
         Diagnose diagnose = diagnoseService.getDiagnoseByAppointment(appointment);
         ModelAndView mav = new ModelAndView("patient/view-diagnose");
-        mav.addObject("diagnose", diagnose);
+        if(diagnose==null){
+            diagnose=new Diagnose();
+            mav.addObject("diagnose", diagnose);
+        }else{
+            mav.addObject("diagnose",diagnose);
+        }
         if(patient==null) {
             patient=new Patient();
             mav.addObject("patient", patient);

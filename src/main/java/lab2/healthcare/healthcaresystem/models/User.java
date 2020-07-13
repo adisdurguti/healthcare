@@ -22,7 +22,7 @@ public class User {
 
 
     @NotBlank
-    @Size(max = 15)
+    @Size(min = 3 , max = 15)
     private String username;
 
     @NaturalId
@@ -32,7 +32,7 @@ public class User {
     private String email;
 
     @NotBlank
-    @Size(max = 100)
+    @Size(min = 8,max = 100)
     private String password;
 
     @Column(name = "active")

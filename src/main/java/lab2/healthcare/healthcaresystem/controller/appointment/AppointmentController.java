@@ -13,9 +13,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -72,18 +74,35 @@ public class AppointmentController {
 
 
     @RequestMapping(value = "/saveAppointment", method = RequestMethod.POST)
-    public String saveAppointment(@ModelAttribute("appointment") Appointment appointment) throws ParseException {
+    public ModelAndView saveAppointment(@ModelAttribute("appointment") @Valid Appointment appointment , BindingResult bindingResult) throws ParseException {
 
+        if(bindingResult.hasErrors()){
+            //return "redirect:/createAppointment/"+doctorSelected.getIddoctor();
 
-        appointment.setDoctor(doctorSelected);
+            ModelAndView model = new ModelAndView();
+            Patient patient = patientService.currentPatient();
+
+            if(patient==null) {
+                patient=new Patient();
+                model.addObject("patient", patient);
+            }else{
+                model.addObject("patient",patient);
+            }
+            model.addObject("doctorSelected", doctorSelected);
+            model.setViewName("appointment/createAppointment");
+            return model;
+        }else {
+            ModelAndView model = new ModelAndView();
+            appointment.setDoctor(doctorSelected);
        /* String date = appointment.getDate().toString();
         Date date1=new SimpleDateFormat("mm/dd/yyyy").parse(date);
         appointment.setDate(date1);*/
-        appointment.setPatient(patientService.currentPatient());
-        appointment.setStatus(AppointmentStatusEnum.PENDING);
-        appointmentService.save(appointment);
-
-        return "redirect:/patientAppointments";
+            appointment.setPatient(patientService.currentPatient());
+            appointment.setStatus(AppointmentStatusEnum.PENDING);
+            appointmentService.save(appointment);
+            model.setViewName("redirect:/patientAppointments");
+            return model;
+        }
     }
 
 

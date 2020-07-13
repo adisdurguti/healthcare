@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,8 +26,11 @@ public class Appointment implements Comparable<Appointment>{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
+    @NotBlank
     private String time;
 
+    @NotBlank
+    @Size(min = 5,max = 150)
     private String description;
 
     @Enumerated(EnumType.STRING)
