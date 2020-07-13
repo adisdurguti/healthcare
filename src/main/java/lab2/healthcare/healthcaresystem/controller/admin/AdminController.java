@@ -42,16 +42,19 @@ public class AdminController {
     public ModelAndView createUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView model = new ModelAndView();
         User userExists = userService.findUserByUsername(user.getUsername());
-
+        User userDoctor = new User();
         if (userExists != null) {
             bindingResult.rejectValue("username", "error.user", "This username already exists");
         }
         if (bindingResult.hasErrors()) {
+            model.addObject("user",new User());
+            model.addObject("userDoctor",userDoctor);
             model.setViewName("admin/register-doctor");
         } else {
             userService.saveUserDoctor(user);
             model.addObject("msg", "User has been registered successfully!");
             model.addObject("user", new User());
+            model.addObject("userDoctor",userDoctor);
             model.setViewName("redirect:/admin");
         }
         return model;
