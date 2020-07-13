@@ -1,11 +1,8 @@
 package lab2.healthcare.healthcaresystem.service;
 
 import lab2.healthcare.healthcaresystem.models.Patient;
-import lab2.healthcare.healthcaresystem.models.User;
 import lab2.healthcare.healthcaresystem.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,15 +11,14 @@ import java.util.List;
 public class PatientServiceImpl implements PatientService {
 
     @Autowired
-    private PatientRepository patientRepository ;
+    private PatientRepository patientRepository;
 
     @Autowired
     private UserServiceImpl userService;
 
-
     @Override
     public Patient currentPatient() {
-       return patientRepository.findByUser(userService.currentUser());
+        return patientRepository.findByUser(userService.currentUser());
     }
 
     @Override
@@ -31,14 +27,13 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<Patient> listAll(){
+    public List<Patient> listAll() {
         return patientRepository.findAll();
     }
 
     @Override
     public void savePatientData(Patient patient) {
 
-        //patient.setIdpatient((long) 10);
         patient.setFirstName(patient.getFirstName());
         patient.setLastName(patient.getLastName());
         patient.setAddress(patient.getAddress());

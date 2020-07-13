@@ -8,6 +8,8 @@ import java.util.List;
 public interface DiagnoseService {
 
     void save(Diagnose diagnose);
+
     Diagnose getDiagnoseByAppointment(Appointment appointment);
+
     List<Diagnose> listAll();
 }

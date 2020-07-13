@@ -13,7 +13,10 @@ import lab2.healthcare.healthcaresystem.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
@@ -22,6 +25,9 @@ import java.util.List;
 @Controller
 public class DiagnoseController {
 
+    public Appointment appointmentDiagnose;
+    public Doctor doctorDiagnose;
+    public Patient patientDiagnose;
     @Autowired
     AppointmentService appointmentService;
     @Autowired
@@ -34,16 +40,6 @@ public class DiagnoseController {
     DiagnoseRepository diagnoseRepository;
     @Autowired
     AppointmentRepository appointmentRepository;
-    public Appointment appointmentDiagnose;
-    public Doctor doctorDiagnose;
-    public Patient patientDiagnose;
-
-
-
-
-
-
-
 
     @RequestMapping(value = "/addDiagnose/{idAppointment}/{idDoctor}/{idPatient}", method = RequestMethod.GET)
     public ModelAndView createAppointment(@PathVariable(name = "idAppointment") Long idAppointment, @PathVariable(name = "idDoctor") Long idDoctor, @PathVariable(name = "idPatient") Long idPatient) {
@@ -59,18 +55,15 @@ public class DiagnoseController {
         mav.addObject("appointmentDiagnose", appointmentDiagnose);
         mav.addObject("doctorDiagnose", doctorDiagnose);
         mav.addObject("patientDiagnose", patientDiagnose);
-        if(doctor==null) {
-            doctor=new Doctor();
+        if (doctor == null) {
+            doctor = new Doctor();
             mav.addObject("doctor", doctor);
-        }else{
-            mav.addObject("doctor",doctor);
+        } else {
+            mav.addObject("doctor", doctor);
         }
 
         return mav;
     }
-
-
-
 
     @RequestMapping(value = "/saveDiagnose", method = RequestMethod.POST)
     public String saveDiagnose(@ModelAttribute("diagnose") Diagnose diagnose, Model model) {
@@ -89,7 +82,6 @@ public class DiagnoseController {
         return "redirect:/doctorAppointments";
     }
 
-
     @RequestMapping(value = "/viewDiagnose/{id}", method = RequestMethod.GET)
     public ModelAndView viewDiagnose(@PathVariable(name = "id") Long id) {
 
@@ -99,13 +91,12 @@ public class DiagnoseController {
         Diagnose diagnose = diagnoseService.getDiagnoseByAppointment(appointment);
         ModelAndView mav = new ModelAndView("patient/view-diagnose");
         mav.addObject("diagnose", diagnose);
-        if(patient==null) {
-            patient=new Patient();
+        if (patient == null) {
+            patient = new Patient();
             mav.addObject("patient", patient);
-        }else{
-            mav.addObject("patient",patient);
+        } else {
+            mav.addObject("patient", patient);
         }
-
 
         return mav;
     }

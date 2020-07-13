@@ -11,26 +11,19 @@ import java.util.Date;
 @Getter
 @Setter
 public class Diagnose {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
     private Date dateCreated;
-
     private String diagnosePatient;
-
     private String treatment;
-
     @OneToOne(optional = false)
     @JoinColumn(name = "idAppointment", referencedColumnName = "idAppointment")
     private Appointment appointment;
-
     @ManyToOne
     @JoinColumn(name = "idpatient")
     private Patient patient;
-
     @ManyToOne
     @JoinColumn(name = "iddoctor")
     private Doctor doctor;
@@ -46,61 +39,5 @@ public class Diagnose {
         this.appointment = appointment;
         this.patient = patient;
         this.doctor = doctor;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public String getDiagnosePatient() {
-        return diagnosePatient;
-    }
-
-    public void setDiagnosePatient(String diagnosePatient) {
-        this.diagnosePatient = diagnosePatient;
-    }
-
-    public String getTreatment() {
-        return treatment;
-    }
-
-    public void setTreatment(String treatment) {
-        this.treatment = treatment;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
     }
 }

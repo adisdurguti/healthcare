@@ -20,7 +20,6 @@ import java.util.List;
 @Controller
 public class AdminController {
 
-
     @Autowired
     private UserService userService;
     @Autowired
@@ -38,6 +37,7 @@ public class AdminController {
 
         return "admin/register-doctor";
     }
+
     @RequestMapping(value = {"/registerDoctorUser"}, method = RequestMethod.POST)
     public ModelAndView createUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView model = new ModelAndView();
@@ -61,9 +61,9 @@ public class AdminController {
     public String doctors(Model model) {
 
         User user = userService.currentUser();
-        List<Doctor> listDoctors= doctorService.listAll();
+        List<Doctor> listDoctors = doctorService.listAll();
         model.addAttribute("user", user);
-        model.addAttribute("listDoctors",listDoctors);
+        model.addAttribute("listDoctors", listDoctors);
 
         return "admin/list-doctors";
     }
@@ -72,9 +72,9 @@ public class AdminController {
     public String patients(Model model) {
 
         User user = userService.currentUser();
-        List<Patient> listPatients= patientService.listAll();
+        List<Patient> listPatients = patientService.listAll();
         model.addAttribute("user", user);
-        model.addAttribute("listPatients",listPatients);
+        model.addAttribute("listPatients", listPatients);
 
         return "admin/list-patients";
     }

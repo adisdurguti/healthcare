@@ -15,7 +15,6 @@ import java.util.Set;
 @Configuration
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 
@@ -23,10 +22,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         if (roles.contains("ROLE_PATIENT")) {
             httpServletResponse.sendRedirect("/patient");
-        } else if(roles.contains("ROLE_DOCTOR")) {
+        } else if (roles.contains("ROLE_DOCTOR")) {
             httpServletResponse.sendRedirect("/doctor");
-        }
-        else if(roles.contains("ROLE_ADMIN")) {
+        } else if (roles.contains("ROLE_ADMIN")) {
             httpServletResponse.sendRedirect("/admin");
         }
     }

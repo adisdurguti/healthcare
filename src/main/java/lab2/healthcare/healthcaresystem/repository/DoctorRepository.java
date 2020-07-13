@@ -1,15 +1,14 @@
 package lab2.healthcare.healthcaresystem.repository;
 
-import lab2.healthcare.healthcaresystem.models.Appointment;
 import lab2.healthcare.healthcaresystem.models.Doctor;
 import lab2.healthcare.healthcaresystem.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository("doctorRepository")
-public interface DoctorRepository extends JpaRepository<Doctor,Long> {
+public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 /*
 
    @Query("SELECT d FROM doctor d WHERE d.iddoctor = 1")
@@ -18,6 +17,8 @@ public interface DoctorRepository extends JpaRepository<Doctor,Long> {
 */
 
     Doctor findById(long id);
+
     Doctor findByUser(User user);
-    List<Doctor> findAllBySpecialization (String specialization);
+
+    List<Doctor> findAllBySpecialization(String specialization);
 }

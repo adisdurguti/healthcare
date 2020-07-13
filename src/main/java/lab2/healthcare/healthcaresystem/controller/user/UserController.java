@@ -6,46 +6,43 @@ import lab2.healthcare.healthcaresystem.repository.AppointmentRepository;
 import lab2.healthcare.healthcaresystem.repository.DiagnoseRepository;
 import lab2.healthcare.healthcaresystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.print.Doc;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
-public class  UserController {
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private AppointmentService appointmentService;
+public class UserController {
 
     @Autowired
     DoctorService doctorService;
-
     @Autowired
     PatientService patientService;
-
     @Autowired
     DiagnoseService diagnoseService;
     @Autowired
     AppointmentRepository appointmentRepository;
     @Autowired
     DiagnoseRepository diagnoseRepository;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private AppointmentService appointmentService;
 
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-     public ModelAndView login() {
+    public ModelAndView login() {
 
-         ModelAndView model = new ModelAndView();
-         model.setViewName("auth/login");
+        ModelAndView model = new ModelAndView();
+        model.setViewName("auth/login");
 
         return model;
     }
@@ -87,29 +84,30 @@ public class  UserController {
         User user = userService.findUserByUsername(auth.getName());
         Patient patient = patientService.currentPatient();
         List<Appointment> appointments = appointmentService.getAppointmentsByPatientId(patient);
-        if(patient==null) {
-            patient=new Patient();
+        if (patient == null) {
+            patient = new Patient();
             model.addObject("patient", patient);
-        }else{
-            model.addObject("patient",patient);
-            model.addObject("listAppointments",appointments);
+        } else {
+            model.addObject("patient", patient);
+            model.addObject("listAppointments", appointments);
         }
         model.setViewName("patient/patient");
         return model;
     }
+
     @RequestMapping(value = {"/doctor"}, method = RequestMethod.GET)
-    public ModelAndView doctor(){
+    public ModelAndView doctor() {
         ModelAndView model = new ModelAndView();
         Doctor doctor = doctorService.currentDoctor();
         List<Appointment> appointments = appointmentRepository.findAllByDoctor(doctor);
         List<Diagnose> diagnoses = diagnoseRepository.findDiagnoseByDoctor(doctor);
-        if(doctor==null) {
-            doctor=new Doctor();
+        if (doctor == null) {
+            doctor = new Doctor();
             model.addObject("doctor", doctor);
-        }else{
-            model.addObject("doctor",doctor);
-            model.addObject("listAppointments",appointments);
-            model.addObject("listDiagnoses",diagnoses);
+        } else {
+            model.addObject("doctor", doctor);
+            model.addObject("listAppointments", appointments);
+            model.addObject("listDiagnoses", diagnoses);
         }
         model.setViewName("doctor/doctor");
 
@@ -122,20 +120,20 @@ public class  UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUsername(auth.getName());
 
-        Map<String,Integer> appointmentGraph = new LinkedHashMap<>();
+        Map<String, Integer> appointmentGraph = new LinkedHashMap<>();
 
-        appointmentGraph.put("January",appointmentService.januaryAppointments());
-        appointmentGraph.put("February",appointmentService.februaryAppointments());
-        appointmentGraph.put("March",appointmentService.marchAppointments());
-        appointmentGraph.put("April",appointmentService.aprilAppointments());
-        appointmentGraph.put("May",appointmentService.mayAppointments());
-        appointmentGraph.put("June",appointmentService.juneAppointments());
-        appointmentGraph.put("July",appointmentService.julyAppointments());
-        appointmentGraph.put("August",appointmentService.augustAppointments());
-        appointmentGraph.put("September",appointmentService.septemberAppointments());
-        appointmentGraph.put("October",appointmentService.octoberAppointments());
-        appointmentGraph.put("November",appointmentService.novemberAppointments());
-        appointmentGraph.put("December",appointmentService.decemberAppointments());
+        appointmentGraph.put("January", appointmentService.januaryAppointments());
+        appointmentGraph.put("February", appointmentService.februaryAppointments());
+        appointmentGraph.put("March", appointmentService.marchAppointments());
+        appointmentGraph.put("April", appointmentService.aprilAppointments());
+        appointmentGraph.put("May", appointmentService.mayAppointments());
+        appointmentGraph.put("June", appointmentService.juneAppointments());
+        appointmentGraph.put("July", appointmentService.julyAppointments());
+        appointmentGraph.put("August", appointmentService.augustAppointments());
+        appointmentGraph.put("September", appointmentService.septemberAppointments());
+        appointmentGraph.put("October", appointmentService.octoberAppointments());
+        appointmentGraph.put("November", appointmentService.novemberAppointments());
+        appointmentGraph.put("December", appointmentService.decemberAppointments());
 
 
         int countDoctor = doctorService.listAll().size();
@@ -143,15 +141,15 @@ public class  UserController {
         int countAppointment = appointmentService.list().size();
         int countDiagnoses = diagnoseService.listAll().size();
 
-        model.addAttribute("appointmentGraph",appointmentGraph);
-        model.addAttribute("user",user);
-        model.addAttribute("countDoctor",countDoctor);
-        model.addAttribute("countPatient",countPatient);
-        model.addAttribute("countAppointment",countAppointment);
-        model.addAttribute("countDiagnoses",countDiagnoses);
-        model.addAttribute("accepted",appointmentService.acceptedAppointment());
-        model.addAttribute("declined",appointmentService.declinedAppointment());
-        model.addAttribute("pending",appointmentService.pendingAppointment());
+        model.addAttribute("appointmentGraph", appointmentGraph);
+        model.addAttribute("user", user);
+        model.addAttribute("countDoctor", countDoctor);
+        model.addAttribute("countPatient", countPatient);
+        model.addAttribute("countAppointment", countAppointment);
+        model.addAttribute("countDiagnoses", countDiagnoses);
+        model.addAttribute("accepted", appointmentService.acceptedAppointment());
+        model.addAttribute("declined", appointmentService.declinedAppointment());
+        model.addAttribute("pending", appointmentService.pendingAppointment());
 
         return "admin/admin-dashboard";
     }

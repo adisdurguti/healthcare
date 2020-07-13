@@ -1,19 +1,13 @@
 package lab2.healthcare.healthcaresystem.service;
 
-import lab2.healthcare.healthcaresystem.models.Appointment;
 import lab2.healthcare.healthcaresystem.models.Doctor;
 import lab2.healthcare.healthcaresystem.models.Rating;
-import lab2.healthcare.healthcaresystem.models.User;
 import lab2.healthcare.healthcaresystem.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import javax.print.Doc;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 
@@ -28,7 +22,6 @@ public class DoctorServiceImpl implements DoctorService {
     private UserServiceImpl userService;
 
 
-
     public List<Doctor> listAll() {
         return doctorRepository.findAll();
     }
@@ -39,7 +32,9 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor currentDoctor() {return doctorRepository.findByUser(userService.currentUser());}
+    public Doctor currentDoctor() {
+        return doctorRepository.findByUser(userService.currentUser());
+    }
 
     @Override
     public List<Rating> ratings(Doctor doctor) {
@@ -51,7 +46,7 @@ public class DoctorServiceImpl implements DoctorService {
     public void saveDoctorData(Doctor doctor) {
 
 
-        if(doctorRepository.findByUser(userService.currentUser())==null) {
+        if (doctorRepository.findByUser(userService.currentUser()) == null) {
             doctor.setFirstName(doctor.getFirstName());
             doctor.setLastName(doctor.getLastName());
             doctor.setAddress(doctor.getAddress());
@@ -62,7 +57,7 @@ public class DoctorServiceImpl implements DoctorService {
             doctor.setUser(userService.currentUser());
             doctor.setSpecialization(doctor.getSpecialization());
             doctorRepository.save(doctor);
-        }else{
+        } else {
 
         }
     }

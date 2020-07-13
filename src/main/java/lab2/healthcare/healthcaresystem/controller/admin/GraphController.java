@@ -11,21 +11,19 @@ import java.util.Map;
 
 @Controller
 public class GraphController {
-
     @Autowired
     AppointmentService appointmentService;
-
 
     @GetMapping("/appointmentGraph")
     public String appointmentGraph(Model model) {
 
-        Map<String,Integer> appointmentGraph = new LinkedHashMap<>();
+        Map<String, Integer> appointmentGraph = new LinkedHashMap<>();
 
-        appointmentGraph.put("Accepted",appointmentService.acceptedAppointment());
-        appointmentGraph.put("Declined",appointmentService.declinedAppointment());
-        appointmentGraph.put("Pending",appointmentService.pendingAppointment());
+        appointmentGraph.put("Accepted", appointmentService.acceptedAppointment());
+        appointmentGraph.put("Declined", appointmentService.declinedAppointment());
+        appointmentGraph.put("Pending", appointmentService.pendingAppointment());
 
-        model.addAttribute("appointmentGraph",appointmentGraph);
+        model.addAttribute("appointmentGraph", appointmentGraph);
 
         return "appointmentGraph";
     }

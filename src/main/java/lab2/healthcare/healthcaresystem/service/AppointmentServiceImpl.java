@@ -1,17 +1,21 @@
 package lab2.healthcare.healthcaresystem.service;
 
 
-import lab2.healthcare.healthcaresystem.models.*;
+import lab2.healthcare.healthcaresystem.models.Appointment;
+import lab2.healthcare.healthcaresystem.models.AppointmentStatusEnum;
+import lab2.healthcare.healthcaresystem.models.Doctor;
+import lab2.healthcare.healthcaresystem.models.Patient;
 import lab2.healthcare.healthcaresystem.repository.AppointmentRepository;
 import lab2.healthcare.healthcaresystem.repository.DoctorRepository;
 import lab2.healthcare.healthcaresystem.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
@@ -36,16 +40,20 @@ public class AppointmentServiceImpl implements AppointmentService {
     private UserServiceImpl userService;
 
     @Override
-    public void save(Appointment appointment) {appointmentRepository.save(appointment);}
+    public void save(Appointment appointment) {
+        appointmentRepository.save(appointment);
+    }
 
     @Override
-    public List<Appointment> list() {return appointmentRepository.findAll();}
+    public List<Appointment> list() {
+        return appointmentRepository.findAll();
+    }
 
     @Override
     public List<Appointment> getAppointmentsByDoctorId(Doctor doctor) {
         List<Appointment> doctorAppointments = new ArrayList<>();
-        doctorAppointments=appointmentRepository.findAllByDoctor(doctorService.currentDoctor());
-        Collections.sort(doctorAppointments,Collections.reverseOrder());
+        doctorAppointments = appointmentRepository.findAllByDoctor(doctorService.currentDoctor());
+        Collections.sort(doctorAppointments, Collections.reverseOrder());
         return doctorAppointments;
     }
 
@@ -81,10 +89,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int countJanuary = 0;
 
-        for (Appointment appointment:appointmentRepository.findAll()) {
+        for (Appointment appointment : appointmentRepository.findAll()) {
 
             calendar.setTime(appointment.getDate());
-            if (calendar.get(Calendar.MONTH) == Calendar.JANUARY){
+            if (calendar.get(Calendar.MONTH) == Calendar.JANUARY) {
                 countJanuary++;
             }
 
@@ -99,9 +107,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int countFebruary = 0;
 
-        for (Appointment appointment:appointmentRepository.findAll()) {
+        for (Appointment appointment : appointmentRepository.findAll()) {
             calendar.setTime(appointment.getDate());
-            if (calendar.get(Calendar.MONTH) == Calendar.FEBRUARY){
+            if (calendar.get(Calendar.MONTH) == Calendar.FEBRUARY) {
                 countFebruary++;
             }
 
@@ -116,9 +124,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int countMarch = 0;
 
-        for (Appointment appointment:appointmentRepository.findAll()) {
+        for (Appointment appointment : appointmentRepository.findAll()) {
             calendar.setTime(appointment.getDate());
-            if (calendar.get(Calendar.MONTH) == Calendar.MARCH){
+            if (calendar.get(Calendar.MONTH) == Calendar.MARCH) {
                 countMarch++;
             }
 
@@ -133,9 +141,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int countApril = 0;
 
-        for (Appointment appointment:appointmentRepository.findAll()) {
+        for (Appointment appointment : appointmentRepository.findAll()) {
             calendar.setTime(appointment.getDate());
-            if (calendar.get(Calendar.MONTH) == Calendar.APRIL){
+            if (calendar.get(Calendar.MONTH) == Calendar.APRIL) {
                 countApril++;
             }
 
@@ -150,9 +158,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int countMay = 0;
 
-        for (Appointment appointment:appointmentRepository.findAll()) {
+        for (Appointment appointment : appointmentRepository.findAll()) {
             calendar.setTime(appointment.getDate());
-            if (calendar.get(Calendar.MONTH) == Calendar.MAY){
+            if (calendar.get(Calendar.MONTH) == Calendar.MAY) {
                 countMay++;
             }
 
@@ -167,9 +175,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int countJune = 0;
 
-        for (Appointment appointment:appointmentRepository.findAll()) {
+        for (Appointment appointment : appointmentRepository.findAll()) {
             calendar.setTime(appointment.getDate());
-            if (calendar.get(Calendar.MONTH) == Calendar.JUNE){
+            if (calendar.get(Calendar.MONTH) == Calendar.JUNE) {
                 countJune++;
             }
 
@@ -184,9 +192,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int countJuly = 0;
 
-        for (Appointment appointment:appointmentRepository.findAll()) {
+        for (Appointment appointment : appointmentRepository.findAll()) {
             calendar.setTime(appointment.getDate());
-            if (calendar.get(Calendar.MONTH) == Calendar.JULY){
+            if (calendar.get(Calendar.MONTH) == Calendar.JULY) {
                 countJuly++;
             }
 
@@ -201,9 +209,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int countAugust = 0;
 
-        for (Appointment appointment:appointmentRepository.findAll()) {
+        for (Appointment appointment : appointmentRepository.findAll()) {
             calendar.setTime(appointment.getDate());
-            if (calendar.get(Calendar.MONTH) == Calendar.AUGUST){
+            if (calendar.get(Calendar.MONTH) == Calendar.AUGUST) {
                 countAugust++;
             }
 
@@ -218,9 +226,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int countSeptember = 0;
 
-        for (Appointment appointment:appointmentRepository.findAll()) {
+        for (Appointment appointment : appointmentRepository.findAll()) {
             calendar.setTime(appointment.getDate());
-            if (calendar.get(Calendar.MONTH) == Calendar.SEPTEMBER){
+            if (calendar.get(Calendar.MONTH) == Calendar.SEPTEMBER) {
                 countSeptember++;
             }
 
@@ -235,9 +243,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int countOctober = 0;
 
-        for (Appointment appointment:appointmentRepository.findAll()) {
+        for (Appointment appointment : appointmentRepository.findAll()) {
             calendar.setTime(appointment.getDate());
-            if (calendar.get(Calendar.MONTH) == Calendar.OCTOBER){
+            if (calendar.get(Calendar.MONTH) == Calendar.OCTOBER) {
                 countOctober++;
             }
 
@@ -252,9 +260,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int countNovember = 0;
 
-        for (Appointment appointment:appointmentRepository.findAll()) {
+        for (Appointment appointment : appointmentRepository.findAll()) {
             calendar.setTime(appointment.getDate());
-            if (calendar.get(Calendar.MONTH) == Calendar.NOVEMBER){
+            if (calendar.get(Calendar.MONTH) == Calendar.NOVEMBER) {
                 countNovember++;
             }
 
@@ -269,9 +277,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int countDecember = 0;
 
-        for (Appointment appointment:appointmentRepository.findAll()) {
+        for (Appointment appointment : appointmentRepository.findAll()) {
             calendar.setTime(appointment.getDate());
-            if (calendar.get(Calendar.MONTH) == Calendar.DECEMBER){
+            if (calendar.get(Calendar.MONTH) == Calendar.DECEMBER) {
                 countDecember++;
             }
 

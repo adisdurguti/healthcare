@@ -7,13 +7,11 @@ import lab2.healthcare.healthcaresystem.repository.RoleRepository;
 import lab2.healthcare.healthcaresystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +23,6 @@ import java.util.Set;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-
     @Qualifier("userRepository")
     @Autowired
     private UserRepository userRepository;
@@ -36,7 +33,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
 
     @Override
     public User findUserByUsername(String username) {
@@ -71,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
+            username = ((UserDetails) principal).getUsername();
         } else {
             username = principal.toString();
         }
@@ -81,13 +77,12 @@ public class UserServiceImpl implements UserService {
         return currentUser;
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        if(user==null)throw new UsernameNotFoundException(username);
-        Set<GrantedAuthority>grantedAuthorities = new HashSet<>();
-        for(Role role : user.getRoles()){
+        if (user == null) throw new UsernameNotFoundException(username);
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        for (Role role : user.getRoles()) {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);

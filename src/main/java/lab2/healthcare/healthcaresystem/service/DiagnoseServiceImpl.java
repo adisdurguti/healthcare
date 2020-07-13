@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DiagnoseServiceImpl implements DiagnoseService{
+public class DiagnoseServiceImpl implements DiagnoseService {
 
     @Autowired
     DiagnoseRepository diagnoseRepository;
@@ -22,6 +22,7 @@ public class DiagnoseServiceImpl implements DiagnoseService{
     public Diagnose getDiagnoseByAppointment(Appointment appointment) {
         return diagnoseRepository.findDiagnoseByAppointment(appointment);
     }
+
     @Override
     public List<Diagnose> listAll() {
         return diagnoseRepository.findAll();

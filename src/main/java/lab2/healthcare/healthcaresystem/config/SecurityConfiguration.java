@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -22,18 +21,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
-
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Autowired
     private DataSource dataSource;
 
-    private final String USERS_QUERY = "select username, password, active  from users where username=?";
-    private final String ROLES_QUERY = "select u.username, r.name from users u inner join user_roles ur on (u.id = ur.user_id) inner join roles r on (ur.role_id=r.id) where u.username=?";
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        String ROLES_QUERY = "select u.username, r.name from users u inner join user_roles ur on (u.id = ur.user_id) inner join roles r on (ur.role_id=r.id) where u.username=?";
+        String USERS_QUERY = "select username, password, active  from users where username=?";
         auth.jdbcAuthentication()
                 .usersByUsernameQuery(USERS_QUERY)
                 .authoritiesByUsernameQuery(ROLES_QUERY)
@@ -61,13 +57,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .and().rememberMe()
                 .tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(60*60)
+                .tokenValiditySeconds(60 * 60)
                 .and().exceptionHandling().accessDeniedPage("/access_denied");
     }
 
-
     @Bean
-    public PersistentTokenRepository persistentTokenRepository(){
+    public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
         db.setDataSource(dataSource);
 
@@ -76,7 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/javax.faces.resource/**", "/css/**", "/images/**", "/fonts/**", "/js/**", "/vendor/** ","/scss/** ");
+        web.ignoring().antMatchers("/javax.faces.resource/**", "/css/**", "/images/**", "/fonts/**", "/js/**", "/vendor/** ", "/scss/** ");
     }
 
 }

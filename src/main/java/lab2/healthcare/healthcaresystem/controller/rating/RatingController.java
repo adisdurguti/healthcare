@@ -1,6 +1,8 @@
 package lab2.healthcare.healthcaresystem.controller.rating;
 
-import lab2.healthcare.healthcaresystem.models.*;
+import lab2.healthcare.healthcaresystem.models.Doctor;
+import lab2.healthcare.healthcaresystem.models.Patient;
+import lab2.healthcare.healthcaresystem.models.Rating;
 import lab2.healthcare.healthcaresystem.service.DoctorService;
 import lab2.healthcare.healthcaresystem.service.PatientService;
 import lab2.healthcare.healthcaresystem.service.RatingService;
@@ -31,20 +33,20 @@ public class RatingController {
 
         doctorSelected = doctorService.get(id);
         Patient patient = patientService.currentPatient();
-        Rating rating= new Rating();
+        Rating rating = new Rating();
         ModelAndView mav = new ModelAndView("patient/rate-doctor");
         rating.setDoctor(doctorSelected);
         rating.setPatient(patientService.currentPatient());
      /*   mav.addObject("doctorSelected", doctorSelected);
         mav.addObject("doctorSelected", doctorSelected);*/
         mav.addObject("rating", rating);
-        if(patient==null) {
-            patient=new Patient();
+        if (patient == null) {
+            patient = new Patient();
             mav.addObject("patient", patient);
-        }else{
-            mav.addObject("patient",patient);
+        } else {
+            mav.addObject("patient", patient);
         }
-        mav.addObject("doctorSelected",doctorSelected);
+        mav.addObject("doctorSelected", doctorSelected);
 
         return mav;
     }
@@ -60,11 +62,11 @@ public class RatingController {
 
         ratingService.save(rating);
         Patient patient = patientService.currentPatient();
-        if(patient==null) {
-            patient=new Patient();
+        if (patient == null) {
+            patient = new Patient();
             mav.addObject("patient", patient);
-        }else{
-            mav.addObject("patient",patient);
+        } else {
+            mav.addObject("patient", patient);
         }
 
         return mav;
