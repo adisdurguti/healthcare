@@ -3,6 +3,7 @@ package lab2.healthcare.healthcaresystem.config;
 
 import lab2.healthcare.healthcaresystem.controller.user.UserController;
 import lab2.healthcare.healthcaresystem.service.UserService;
+import org.hamcrest.CoreMatchers;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,11 +20,12 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
@@ -32,13 +34,26 @@ public class SpringSecurityConfigTest {
 
     public static final String USERNAME = "admin";
     public static final String WRONG_USERNAME = "wrong_username";
-    public static final String PASSWORD = "7000000";
+    public static final String PASSWORD = "123";
     public static final String WRONG_PASSWORD = "wrongPassword";
 
     @Autowired
     private MockMvc mvc;
     @MockBean
     private UserService userService;
+
+
+    @Test
+    public void contextLoads()throws Exception{
+        this.mvc.perform(MockMvcRequestBuilders.get("/login"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                /*.andExpect(content().string(CoreMatchers.containsString("Please sign in")))
+                .andExpect(content().string(CoreMatchers.containsString("Username")))
+                .andExpect(content().string(CoreMatchers.containsString("Password")))*/
+                .andExpect(content().string(CoreMatchers.containsString("Sign in")));
+    }
+
 
     @Test
     public void testLoginWithValidParameters_ShouldLogin() throws Exception {
@@ -48,12 +63,13 @@ public class SpringSecurityConfigTest {
                 .andExpect(authenticated().withUsername(USERNAME));
     }
     @Test
-    @Ignore
-    public void testLoginWithInValidUrl_ShouldNotLogin() throws Exception {
+    public void testLoginWithUnAuthorized_ShouldNotLogin() throws Exception {
         this.mvc
                 . perform(MockMvcRequestBuilders
-                        .get("/patient/").accept(USERNAME,PASSWORD))
-                .andExpect(status().isNotFound());
+                        .get("/patient").accept(USERNAME,PASSWORD))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("http://localhost/login"));
                 //.andExpect(authenticated().withUsername(USERNAME));
     }
     @Test
@@ -75,7 +91,6 @@ public class SpringSecurityConfigTest {
     @Configuration
     static class TestSpringConfig extends WebSecurityConfigurerAdapter {
 
-        BCryptPasswordEncoder bCryptPasswordEncoder;
         @Autowired
         protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
             PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();

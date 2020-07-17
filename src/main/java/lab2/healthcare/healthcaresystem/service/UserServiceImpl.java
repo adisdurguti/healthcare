@@ -103,4 +103,18 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    public User createUser(User user) {
+        user.setId(user.getId());
+
+        user.setActive(user.getActive());
+        user.setUsername(user.getUsername());
+        user.setEmail(user.getEmail());
+        user.setRoles(user.getRoles());
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
+        user.setEnabled(true);
+        user.setPassword(user.getPassword());
+        return user;
+    }
 }
