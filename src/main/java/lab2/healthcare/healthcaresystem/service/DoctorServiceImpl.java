@@ -21,6 +21,9 @@ public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private DoctorService doctorService;
+
 
     public List<Doctor> listAll() {
         return doctorRepository.findAll();
@@ -58,6 +61,19 @@ public class DoctorServiceImpl implements DoctorService {
             doctor.setSpecialization(doctor.getSpecialization());
             doctorRepository.save(doctor);
         } else {
+
+
+            Doctor currentDoctor = doctorService.currentDoctor();
+            currentDoctor.setFirstName(doctor.getFirstName());
+            currentDoctor.setLastName(doctor.getLastName());
+            currentDoctor.setAddress(doctor.getAddress());
+            currentDoctor.setPhone(doctor.getPhone());
+            currentDoctor.setCity(doctor.getCity());
+            currentDoctor.setCountry(doctor.getCountry());
+            currentDoctor.setSex(doctor.getSex());
+            currentDoctor.setSpecialization(doctor.getSpecialization());
+            doctorRepository.save(currentDoctor);
+
 
         }
     }
