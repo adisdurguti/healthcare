@@ -23,6 +23,9 @@ import java.util.Set;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
+
+    private RoleService roleService;
+
     @Qualifier("userRepository")
     @Autowired
     private UserRepository userRepository;
@@ -47,7 +50,13 @@ public class UserServiceImpl implements UserService {
         user.setEmail(user.getEmail());
         Role userRole = roleRepository.findByName("ROLE_PATIENT");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        //user.addRole(roleService.getRoleName("ROLE_PATIENT"));
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
+        user.setEnabled(true);
         userRepository.save(user);
+        loadUserByUsername(user.getUsername());
     }
 
     @Override
@@ -58,6 +67,11 @@ public class UserServiceImpl implements UserService {
         user.setEmail(user.getEmail());
         Role userRole = roleRepository.findByName("ROLE_DOCTOR");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        //user.addRole(roleService.getRoleName("ROLE_PATIENT"));
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
+        user.setEnabled(true);
         userRepository.save(user);
     }
 
@@ -87,4 +101,6 @@ public class UserServiceImpl implements UserService {
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
+
+
 }
