@@ -51,13 +51,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
+                .antMatchers("/vendor/**").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/doctor").hasRole("DOCTOR")
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/patient").hasRole("PATIENT").anyRequest()
-                .authenticated().and()//.csrf().disable()
+                .authenticated()
+                .and()
+                .csrf()
+                .disable()
                 .formLogin().loginPage("/login")
                 .successHandler(authenticationSuccessHandler)
                 .failureUrl("/login?error=true")
@@ -68,11 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .and().rememberMe()
                 .key("SecretKey")
-                .tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(60 * 60)
-                .and().exceptionHandling().accessDeniedPage("/access_denied")
-                .and().csrf().disable();
-
+                .and().exceptionHandling().accessDeniedPage("/access_denied");
     }
 
     @Bean
@@ -87,17 +87,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/javax.faces.resource/**", "/css/**", "/images/**", "/fonts/**", "/js/**", "/vendor/** ", "/scss/** ");
     }
-
-   /* @Bean
-    public UserDetailsService userDetailsService() {
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        UserDetails user = User.withUsername(“user”)
-                .password(encoder.encode(“user”))
-                .roles("ADMIN").build();
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(user);
-        return manager;
-
-    }*/
-
 }

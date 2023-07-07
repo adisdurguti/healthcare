@@ -118,6 +118,8 @@ public class DiagnoseController {
         if (patient == null) {
             patient = new Patient();
             mav.addObject("patient", patient);
+        } else {
+            mav.addObject("patient", patient);
         }
 
         return mav;

@@ -12,12 +12,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-   /* @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("user/login");
-        registry.addViewController("/home/home").setViewName("home/home");
-        registry.addViewController("/doctor").setViewName("user-registered");
-        registry.addViewController("/login").setViewName("user/login");
-    }*/
-
 }
